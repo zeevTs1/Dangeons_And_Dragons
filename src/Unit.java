@@ -17,22 +17,23 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void battle(Unit defender){
-        int attackPoints = attack();
-        int defensePoints = defender.defense();
-        if(attackPoints-defensePoints>0){
-            defender.getHealth().ReduceAmount(attackPoints-defensePoints);
+        int attackPoints = attack;
+        int defencePoints = defender.defense;
+        if(attackPoints - defencePoints >0){
+            defender.getHealth().ReduceAmount(attackPoints - defencePoints);
+
         }
-    }
 
+    }
     public int attack(){
-        Random rnd = new Random();
-        return rnd.nextInt(getAttack()+1);
+        Random random = new Random();
+        return random.nextInt(getAttack()+1);
+    }
+    public int defense(){
+        Random random = new Random();
+        return random.nextInt(getDefense()+1);
     }
 
-    public int defense(){
-        Random rnd = new Random();
-        return rnd.nextInt(getDefense()+1);
-    }
 
     public String getName() {
         return name;
@@ -50,14 +51,6 @@ public abstract class Unit extends Tile implements Visitor {
         this.health = health;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
     public int getDefense() {
         return defense;
     }
@@ -66,8 +59,15 @@ public abstract class Unit extends Tile implements Visitor {
         this.defense = defense;
     }
 
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
     public String toString(){
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }
-
 }
