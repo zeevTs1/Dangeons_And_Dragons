@@ -7,7 +7,7 @@ public abstract class Unit extends Tile {
     public abstract void  interact();
 
     public Unit(char tile, Position position, String name, Resource health, int attack, int defense){
-        super(tile);
+        super(tile, position);
         this.name = name;
         this.health = health;
         this.attack = attack;
