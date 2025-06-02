@@ -2,9 +2,10 @@ public abstract class Player extends Unit {
     protected int experience;
     protected int level;
 
-    public Player(char tile, Position position, String name, Resource health, int attack, int defense, int experienceValue){
+    public Player(char tile, Position position, String name, Resource health, int attack, int defense, int experience, int level){
         super(tile, position, name, health, attack, defense);
-        this.experienceValue=experienceValue;
+        this.experience=experience;
+        this.level=level;
     }
 
     public abstract void castSpecialAbility();
