@@ -21,19 +21,31 @@ public abstract class Unit extends Tile implements Visitor {
         int defencePoints = defender.defense;
         if(attackPoints - defencePoints >0){
             defender.getHealth().ReduceAmount(attackPoints - defencePoints);
-
         }
-
     }
+
     public int attack(){
         Random random = new Random();
         return random.nextInt(getAttack()+1);
     }
+
     public int defense(){
         Random random = new Random();
         return random.nextInt(getDefense()+1);
     }
 
+    public void moveUp(){
+        interact();
+    }
+    public void moveDown(){
+        interact();
+    }
+    public void moveRight(){
+        interact();
+    }
+    public void moveLeft(){
+        interact();
+    }
 
     public String getName() {
         return name;

@@ -29,6 +29,11 @@ public class Position {
         tile2.setPosition(temp);
     }
 
+    public static double range(Position position1, Position position2){
+        return Math.sqrt(Math.pow(position1.getX()-position2.getX(),2) + Math.pow(position1.getY()-position2.getY(),2));
+    }
+
+
     @Override
     public String toString() {
         return "Position{" +

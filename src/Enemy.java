@@ -6,6 +6,8 @@ public abstract class Enemy extends Unit{
         this.experienceValue=experienceValue;
     }
 
+    public abstract void playTurn(Player player);
+
     public void interact(Tile tile){
         tile.accept(this);
     }
