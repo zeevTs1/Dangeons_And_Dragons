@@ -6,10 +6,23 @@ public abstract class Enemy extends Unit{
         this.experienceValue=experienceValue;
     }
 
-    public void visit(Player player){
-
+    public void interact(Tile tile){
+        tile.accept(this);
     }
-    public void visit(Enemy enemy){
 
+    public void visit(Empty emptyTile){
+        Position.swapPosition(this, emptyTile);
+    }
+    public void visit(Wall wall){}
+    public void visit(Player player){
+        battle(player);
+        if(player.health.getAmount()==0){
+            player.setCharacter('X');
+        }
+    }
+    public void visit(Enemy enemy){}
+
+    public void accept(Visitor v){
+        v.visit(this);
     }
 }

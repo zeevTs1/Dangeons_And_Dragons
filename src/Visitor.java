@@ -1,7 +1,6 @@
 public interface Visitor {
     public void visit(Empty emptyTile);
-    public void visit(Wall emptyTile);
-    public void visit(Player emptyTile);
-    public void visit(Enemy emptyTile);
-
+    public void visit(Wall wall);
+    public void visit(Player player);
+    public void visit(Enemy enemy);
 }

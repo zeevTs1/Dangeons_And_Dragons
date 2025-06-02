@@ -10,6 +10,7 @@ public abstract class Player extends Unit {
 
     public abstract void castSpecialAbility();
     public abstract void levelUp();
+
     public void visit(Enemy enemy){
 
     }

@@ -23,6 +23,12 @@ public class Position {
         this.y = y;
     }
 
+    public static void swapPosition(Tile tile1, Tile tile2){
+        Position temp = tile1.getPosition();
+        tile1.setPosition(tile2.getPosition());
+        tile2.setPosition(temp);
+    }
+
     @Override
     public String toString() {
         return "Position{" +
