@@ -28,11 +28,15 @@ public class Position implements Comparable<Position> {
         return Math.sqrt(Math.pow(this.x-other.x,2) + Math.pow(this.y-other.y,2));
     }
 
+    public Position add(int newX, int newY){
+        return new Position(x+newX,y+newY);
+    }
+
     @Override
     public int compareTo(Position other) {
         if(other.y < this.y)
             return 1;
-        else if (other.y > y)
+        else if (other.y > this.y)
             return -1;
         else {
             if (other.x < this.x)

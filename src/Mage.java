@@ -15,19 +15,19 @@ public class Mage extends Player {
         this.abilityRange = abilityRange;
     }
 
-
+    @Override
     public void levelUp(){
         super.levelUp();
-        mana.setCapacity(this.mana.getCapacity() +25*level);
-        mana.setAmount(this.mana.getCapacity()/4 +this.mana.getAmount());
+        mana.AddCapacity(25*level);
+        mana.AddAmount(this.mana.getCapacity()/4);
         spellPower +=spellPower + 10*level;
 
     }
 
+
     @Override
-    public void playTurn(){
-        super.playTurn();
-        this.mana.setAmount(this.mana.getAmount() + level);
+    public void onGameTick(){
+        this.mana.AddAmount(level);
     }
 
     @Override

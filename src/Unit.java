@@ -6,11 +6,6 @@ public abstract class Unit extends Tile implements Visitor {
     protected int attack;
     protected int defense;
 
-    public abstract void interact(Tile tile);
-
-    public void playTurn(){
-
-    }
 
     public Unit(char tile, Position position, String name, Resource health, int attack, int defense){
         super(tile, position);
@@ -28,6 +23,10 @@ public abstract class Unit extends Tile implements Visitor {
         }
     }
 
+    public void interact(Tile tile){
+        tile.accept(this);
+    }
+
     public int attack(){
         Random random = new Random();
         return random.nextInt(getAttack()+1);
@@ -38,18 +37,6 @@ public abstract class Unit extends Tile implements Visitor {
         return random.nextInt(getDefense()+1);
     }
 
-    public void moveUp(){
-        interact();
-    }
-    public void moveDown(){
-        interact();
-    }
-    public void moveRight(){
-        interact();
-    }
-    public void moveLeft(){
-        interact();
-    }
 
     public void swapPosition(Tile other){
         Position temp = other.getPosition();

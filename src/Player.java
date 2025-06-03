@@ -9,6 +9,9 @@ public abstract class Player extends Unit {
     }
 
     public abstract void castSpecialAbility();
+
+    public abstract void onGameTick();
+
     public void levelUp(){
         this.experience = this.experience - 50 *level;
         level++;
@@ -17,6 +20,24 @@ public abstract class Player extends Unit {
         attack = attack + 4*level;
         defense = defense + level;
     }
+
+    public Position performAction(char action) {
+        Position newPosition = position;
+        if (action == 'e')
+            castSpecialAbility();
+        else if (action == 'd')
+            newPosition = newPosition.add(1,0);
+        else if (action == 'a')
+            newPosition = newPosition.add(-1,0);
+        else if (action == 'w')
+            newPosition = newPosition.add(0,-1);
+        else if (action == 's')
+            newPosition = newPosition.add(0,1);
+
+        onGameTick();
+        return newPosition;
+    }
+
     public void visit(Enemy enemy){
         if(enemy.health.getAmount() == 0){
             int newExperience = enemy.experienceValue;
@@ -27,9 +48,7 @@ public abstract class Player extends Unit {
         }
 
     }
-    public void interact(Tile tile){
 
-    }
     public void visit(Empty tile){
         swapPosition(tile);
     }

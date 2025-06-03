@@ -34,8 +34,7 @@ public class Warrior  extends Player{
 
 
     @Override
-    public void playTurn(){
-        super.playTurn();
+    public void onGameTick(){
         this.remainingCoolDown--;
     }
 

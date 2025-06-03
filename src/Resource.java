@@ -12,7 +12,7 @@ public class Resource {
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.amount = Math.min(amount,capacity);
     }
 
     public int getCapacity() {
@@ -24,16 +24,13 @@ public class Resource {
     }
 
     public void AddAmount(int givenAmount){
-        this.amount+=givenAmount;
+        this.amount = Math.min(this.amount+givenAmount, capacity);
     }
     public void AddCapacity(int givenCapacity){
         this.capacity+=givenCapacity;
     }
     public void ReduceAmount(int givenAmount){
-        this.amount-=givenAmount;
-    }
-    public void ReduceCapacity(int givenCapacity){
-        this.capacity-=givenCapacity;
+        this.amount = Math.max(this.amount-givenAmount, 0);
     }
 
     public void restore(){

@@ -13,15 +13,17 @@ public class Trap extends Enemy{
     }
 
 
-    public void playTurn(Player player){
+    public Position performAction(Player player){
+        Position newPosition = getPosition();
         visible = ticksCount < visibilityTime;
         if(ticksCount==(visibilityTime+invisibilityTime))
             ticksCount=0;
         else
             ticksCount++;
         if(getPosition().range(player.getPosition())<2){
-            interact(player);
+            newPosition=player.getPosition();
         }
+        return newPosition;
     }
 
     public boolean isVisible() {

@@ -8,21 +8,24 @@ public class Rogue extends Player {
         this.currentEnergy = 100;
     }
 
-    public void playTurn(){
-        super.playTurn();
-        this.currentEnergy= Math.min(currentEnergy+10,100);
-    }
-
-    public  void levelUp(){
+    @Override
+    public void levelUp(){
         super.levelUp();
         currentEnergy = 100;
         attack = attack + 3* level;
     }
 
+    @Override
+    public void onGameTick(){
+        this.currentEnergy= Math.min(currentEnergy+10,100);
+    }
 
+    @Override
     public void castSpecialAbility() {
         currentEnergy = currentEnergy - cost;
         //for each enemy with range < 2 visit(enemy)
     }
+
+
 
 }

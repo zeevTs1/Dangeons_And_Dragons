@@ -13,21 +13,22 @@ public class Monster extends Enemy{
         this.visionRange=visionRange;
     }
 
-    public void playTurn(Player player){
+    public Position performAction(Player player){
+        Position newPosition = getPosition();
         if(getPosition().range(player.getPosition())<visionRange){
             int dx = getPosition().getX()-player.getPosition().getX();
             int dy = getPosition().getY()-player.getPosition().getY();
-            if(Math.abs(dx)<Math.abs(dy)){
+            if(Math.abs(dx)>Math.abs(dy)){
                 if(dx>0)
-                    moveLeft();
+                    newPosition = getPosition().add(-1,0);
                 else
-                    moveRight();
+                    newPosition = getPosition().add(1,0);
             }
             else{
                 if(dy > 0)
-                    moveUp();
+                    newPosition = getPosition().add(0,-1);
                 else
-                    moveDown();
+                    newPosition = getPosition().add(0,1);
             }
         }
         else{
@@ -35,15 +36,16 @@ public class Monster extends Enemy{
             int randomMove = rnd.nextInt(5);
             switch (randomMove) {
                 case MOVE_UP:
-                    moveUp();
+                    newPosition = getPosition().add(0,-1);
                 case MOVE_DOWN:
-                    moveDown();
+                    newPosition = getPosition().add(0,1);
                 case MOVE_LEFT:
-                    moveLeft();
+                    newPosition = getPosition().add(-1,0);
                 case MOVE_RIGHT:
-                    moveRight();
+                    newPosition = getPosition().add(1,0);
             }
         }
+        return newPosition;
     }
 
 
