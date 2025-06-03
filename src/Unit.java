@@ -8,6 +8,10 @@ public abstract class Unit extends Tile implements Visitor {
 
     public abstract void interact(Tile tile);
 
+    public void playTurn(){
+
+    }
+
     public Unit(char tile, Position position, String name, Resource health, int attack, int defense){
         super(tile, position);
         this.name = name;

@@ -2,10 +2,10 @@ public abstract class Player extends Unit {
     protected int experience;
     protected int level;
 
-    public Player(char tile, Position position, String name, Resource health, int attack, int defense, int experience, int level){
+    public Player(char tile, Position position, String name, Resource health, int attack, int defense, int experience){
         super(tile, position, name, health, attack, defense);
         this.experience=experience;
-        this.level=level;
+        this.level=1;
     }
 
     public abstract void castSpecialAbility();
@@ -27,6 +27,9 @@ public abstract class Player extends Unit {
         }
 
     }
+    public void interact(Tile tile){
+
+    }
     public void visit(Empty tile){
         Empty.swapPosition(tile,this);
     }
@@ -34,6 +37,9 @@ public abstract class Player extends Unit {
 
     }
     public void accept(Visitor v){
+
+    }
+    public void visit(Player player){
 
     }
 }
