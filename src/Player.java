@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class Player extends Unit {
     protected int experience;
     protected int level;
@@ -8,9 +10,10 @@ public abstract class Player extends Unit {
         this.level=1;
     }
 
-    public abstract void castSpecialAbility();
+    public abstract void castSpecialAbility(List<Enemy> enemies);
 
     public abstract void onGameTick();
+
 
     public void levelUp(){
         this.experience = this.experience - 50 *level;

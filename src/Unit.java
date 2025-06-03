@@ -16,8 +16,8 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void battle(Unit defender){
-        int attackPoints = attack;
-        int defencePoints = defender.defense;
+        int attackPoints = attack();
+        int defencePoints = defender.defense();
         if(attackPoints - defencePoints >0){
             defender.getHealth().ReduceAmount(attackPoints - defencePoints);
         }

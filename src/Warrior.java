@@ -1,4 +1,8 @@
-public class Warrior  extends Player{
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Warrior extends Player{
     private int abilityCoolDown;
     private int remainingCoolDown;
 
@@ -10,17 +14,22 @@ public class Warrior  extends Player{
     }
 
     @Override
-    public void castSpecialAbility() {
-        if(remainingCoolDown <= 0){
-            //choose an enemy randomly. will be implemented soon.
-            Enemy enemy = chooseRandomEnemy();
-            if(getPosition().range(enemy.getPosition()) < 3){
-                enemy.health.ReduceAmount(this.getDefense()/10);
-                this.health.AddCapacity(10* defense);
+    public void castSpecialAbility(List<Enemy> enemies) {
+        if(remainingCoolDown == 0){
+            this.health.AddCapacity(10* defense);
+            List<Enemy> possibleEnemies = new ArrayList<>();
+            for(Enemy enemy : enemies){
+                if(getPosition().range(enemy.getPosition()) < 3)
+                    possibleEnemies.add(enemy);
+            }
+            if(!possibleEnemies.isEmpty()){
+                Random randomEnemy = new Random();
+                int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());
+                Enemy selectedEnemy = possibleEnemies.get(enemyIndex);
+                selectedEnemy.health.ReduceAmount(this.getDefense()/10);
             }
             remainingCoolDown = abilityCoolDown;
         }
-
     }
 
     @Override
@@ -35,7 +44,7 @@ public class Warrior  extends Player{
 
     @Override
     public void onGameTick(){
-        this.remainingCoolDown--;
+        this.remainingCoolDown=Math.min(this.remainingCoolDown-1,0);
     }
 
 }

@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Mage extends Player {
     private Resource mana;
     private int manaCost;
@@ -31,16 +35,26 @@ public class Mage extends Player {
     }
 
     @Override
-    public void castSpecialAbility(){
-        this.mana.setAmount(this.mana.getAmount() - manaCost);
-        int hits =0;
-        while(hits< hitsCount){// and if a living enemy exist.range()< ability range
-            Enemy enemy;//select random enemy
-            int actualAttack = this.attack;
-            this.attack = spellPower;
-            visit(enemy);
-            this.attack = actualAttack;
-            hits --;
+    public void castSpecialAbility(List<Enemy> enemies){
+        if(manaCost<=this.mana.getAmount()) {
+            this.mana.ReduceAmount(manaCost);
+            int hits = 0;
+            List<Enemy> possibleEnemies = new ArrayList<>();
+            for(Enemy enemy : enemies){
+                if(getPosition().range(enemy.getPosition()) < 3)
+                    possibleEnemies.add(enemy);
+            }
+            while (hits < hitsCount && !possibleEnemies.isEmpty()) {
+                Random randomEnemy = new Random();
+                int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());
+                Enemy selectedEnemy = possibleEnemies.get(enemyIndex);
+                int actualAttack = this.spellPower - selectedEnemy.defense();
+                if(actualAttack>0)
+                    selectedEnemy.getHealth().ReduceAmount(actualAttack);
+                if(selectedEnemy.getHealth().getAmount()==0)
+                    possibleEnemies.remove(selectedEnemy);
+                hits++;
+            }
         }
     }
 
