@@ -6,12 +6,12 @@ public class Mage extends Player {
     private int abilityRange;
 
 
-    public Mage(char tile, Position position, String name, Resource health, int attack, int defense, int experience, Resource mana, int manaCost, int spellPower, int abilityRange) {
+    public Mage(char tile, Position position, String name, Resource health, int attack, int defense, int experience, int manaCapacity, int manaCost, int spellPower, int abilityRange, int hitsCount) {
         super(tile, position, name, health, attack, defense, experience);
-        this.mana = mana;
+        this.mana = new Resource(manaCapacity/4,manaCapacity);
         this.manaCost = manaCost;
         this.spellPower = spellPower;
-        this.hitsCount = 0;
+        this.hitsCount = hitsCount;
         this.abilityRange = abilityRange;
     }
 

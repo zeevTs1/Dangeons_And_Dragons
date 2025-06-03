@@ -14,7 +14,7 @@ public class Warrior  extends Player{
         if(remainingCoolDown <= 0){
             //choose an enemy randomly. will be implemented soon.
             Enemy enemy = randomChooseEnemy();
-            if(Position.range(this,enemy) < 3){
+            if(Position.range(this.position,enemy.position) < 3){
                 enemy.health.ReduceAmount(this.getDefense()/10);
                 this.health.AddCapacity(10* defense);
             }
