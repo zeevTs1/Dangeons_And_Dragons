@@ -14,7 +14,7 @@ public class Monster extends Enemy{
     }
 
     public void playTurn(Player player){
-        if(Position.range(getPosition(), player.getPosition())<visionRange){
+        if(getPosition().range(player.getPosition())<visionRange){
             int dx = getPosition().getX()-player.getPosition().getX();
             int dy = getPosition().getY()-player.getPosition().getY();
             if(Math.abs(dx)<Math.abs(dy)){

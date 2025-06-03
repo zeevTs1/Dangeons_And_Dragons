@@ -31,7 +31,7 @@ public abstract class Player extends Unit {
 
     }
     public void visit(Empty tile){
-        Empty.swapPosition(tile,this);
+        swapPosition(tile);
     }
     public void visit(Wall wall){
 

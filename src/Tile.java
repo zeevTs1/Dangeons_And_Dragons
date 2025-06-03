@@ -1,4 +1,4 @@
-public abstract class Tile implements Visited {
+public abstract class Tile implements Visited, Comparable<Tile> {
     protected char tile;
     protected Position position;
 
@@ -7,11 +7,11 @@ public abstract class Tile implements Visited {
         this.position = position;
     }
 
-    public char getCharacter() {
+    public char getTile() {
         return tile;
     }
 
-    public void setCharacter(char tile) {
+    public void setTile(char tile) {
         this.tile = tile;
     }
 
@@ -21,6 +21,11 @@ public abstract class Tile implements Visited {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public int compareTo(Tile tile) {
+        return getPosition().compareTo(tile.getPosition());
     }
 
     @Override

@@ -5,8 +5,8 @@ public class Wall extends Tile{
         v.visit(this);
     }
 
-    public Wall(char character, Position position){
-        super(character, position);
+    public Wall(Position position){
+        super('#', position);
     }
 
 }

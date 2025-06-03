@@ -51,6 +51,12 @@ public abstract class Unit extends Tile implements Visitor {
         interact();
     }
 
+    public void swapPosition(Tile other){
+        Position temp = other.getPosition();
+        other.setPosition(getPosition());
+        setPosition(temp);
+    }
+
     public String getName() {
         return name;
     }

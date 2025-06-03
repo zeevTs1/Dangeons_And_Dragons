@@ -19,7 +19,7 @@ public class Trap extends Enemy{
             ticksCount=0;
         else
             ticksCount++;
-        if(Position.range(getPosition(), player.getPosition())<2){
+        if(getPosition().range(player.getPosition())<2){
             interact(player);
         }
     }
