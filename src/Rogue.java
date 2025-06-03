@@ -2,8 +2,8 @@ public class Rogue extends Player {
     private int cost;
     private int currentEnergy;
 
-    public Rogue(char tile, Position position, String name, Resource health, int attack, int defense, int experience, int cost) {
-        super(tile, position, name, health, attack, defense, experience);
+    public Rogue( String name, int healthCapacity, int attack, int defense, int cost) {
+        super('@', new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, 0);
         this.cost = cost;
         this.currentEnergy = 100;
     }
