@@ -41,7 +41,7 @@ public class Mage extends Player {
             int hits = 0;
             List<Enemy> possibleEnemies = new ArrayList<>();
             for(Enemy enemy : enemies){
-                if(getPosition().range(enemy.getPosition()) < 3)
+                if(getPosition().range(enemy.getPosition()) < abilityRange)
                     possibleEnemies.add(enemy);
             }
             while (hits < hitsCount && !possibleEnemies.isEmpty()) {

@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class Rogue extends Player {
     private int cost;
     private int currentEnergy;
@@ -21,9 +25,18 @@ public class Rogue extends Player {
     }
 
     @Override
-    public void castSpecialAbility() {
-        currentEnergy = currentEnergy - cost;
-        //for each enemy with range < 2 visit(enemy)
+    public void castSpecialAbility(List<Enemy> enemies) {
+        if(currentEnergy>=cost){
+            currentEnergy = currentEnergy - cost;
+        }
+        for(Enemy enemy : enemies){
+            if(getPosition().range(enemy.getPosition()) < 2) {
+                int actualAttack = attack - enemy.defense();
+                enemy.getHealth().ReduceAmount(actualAttack);
+
+                // enemy may die and we need to do something about it later on
+            }
+        }
     }
 
 
