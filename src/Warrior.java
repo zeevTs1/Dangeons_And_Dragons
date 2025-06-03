@@ -32,6 +32,7 @@ public class Warrior  extends Player{
         this.defense += level;
     }
 
+
     @Override
     public void playTurn(){
         super.playTurn();
