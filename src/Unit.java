@@ -76,6 +76,10 @@ public abstract class Unit extends Tile implements Visitor {
         this.attack = attack;
     }
 
+    protected boolean alive(){
+        return health.getAmount()==0;
+    }
+
     public String toString(){
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }

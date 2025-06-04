@@ -1,33 +1,78 @@
 import java.util.List;
 
 public abstract class Player extends Unit {
+    public static final char playerTile = '@';
+
+    protected static final int REQ_EXP=50;
+    protected static final int ATTACK_BONUS=4;
+    protected static final int DEFENSE_BONUS=1;
+    protected static final int HEIGHT_BONUS=10;
+
+
+
+
     protected int experience;
     protected int level;
 
-    public Player(char tile, Position position, String name, Resource health, int attack, int defense, int experience){
-        super(tile, position, name, health, attack, defense);
-        this.experience=experience;
+    protected InputQuery inputProvider;
+
+    public Player(Position position, String name, Resource health, int attack, int defense){
+        super(playerTile, position, name, health, attack, defense);
+        this.experience=0;
         this.level=1;
+    }
+
+    public void setInputQuery(InputQuery inputProvider)
+    {
+        this.inputProvider = inputProvider;
     }
 
     public abstract void castSpecialAbility(List<Enemy> enemies);
 
     public abstract void onGameTick();
 
+    protected void addExperience(int experienceGained) {
+        this.experience += experienceGained;
+        int nextLevelReq = levelUpRequirement();
 
-    public void levelUp(){
-        this.experience = this.experience - 50 *level;
-        level++;
-        health.AddCapacity(health.capacity+ 10*level);
-        this.health.restore();
-        attack = attack + 4*level;
-        defense = defense + level;
+        while (experience >= nextLevelReq) {
+            levelUp();
+            experience -= nextLevelReq;
+            nextLevelReq = levelUpRequirement();
+        }
     }
 
-    public Position performAction(char action) {
+    public void levelUp(){
+        level++;
+        int healthGained = gainHealth();
+        int attackGained = gainAttack();
+        int defenseGained = gainDefense();
+        health.AddCapacity(healthGained);
+        health.restore();
+        attack+=attackGained;
+        defense+=defenseGained;
+    }
+
+    protected int gainHealth(){
+        return level*HEIGHT_BONUS;
+    }
+    protected int gainAttack(){
+        return level*ATTACK_BONUS;
+    }
+    protected int gainDefense(){
+        return level*DEFENSE_BONUS;
+    }
+    protected int levelUpRequirement(){
+        return level*REQ_EXP;
+    }
+
+
+
+    public Position performAction(List<Enemy> enemies) {
+        char action = inputProvider.getInput();
         Position newPosition = position;
         if (action == 'e')
-            castSpecialAbility();
+            castSpecialAbility(enemies);
         else if (action == 'd')
             newPosition = newPosition.add(1,0);
         else if (action == 'a')
@@ -42,12 +87,8 @@ public abstract class Player extends Unit {
     }
 
     public void visit(Enemy enemy){
-        if(enemy.health.getAmount() == 0){
-            int newExperience = enemy.experienceValue;
-            this.experience = this.experience+ newExperience;
-            while(newExperience >= 50*level){
-                levelUp();
-            }
+        if(!enemy.alive()){
+            addExperience(enemy.experienceValue);
         }
 
     }

@@ -8,7 +8,7 @@ public class Warrior extends Player{
 
 
     public Warrior(String name, int healthCapacity, int attack, int defense, int abilityCoolDown ) {
-        super('@', new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, 0);
+        super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.abilityCoolDown = abilityCoolDown;
         remainingCoolDown = 0;
     }
@@ -44,7 +44,7 @@ public class Warrior extends Player{
 
     @Override
     public void onGameTick(){
-        this.remainingCoolDown=Math.min(this.remainingCoolDown-1,0);
+        this.remainingCoolDown=Math.max(this.remainingCoolDown-1,0);
     }
 
 }

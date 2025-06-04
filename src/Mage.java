@@ -11,7 +11,7 @@ public class Mage extends Player {
 
 
     public Mage(String name, int healthCapacity, int attack, int defense, int manaCapacity, int manaCost, int spellPower, int hitsCount , int  abilityRange) {
-        super('@', new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, 0);
+        super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.mana = new Resource(manaCapacity/4,manaCapacity);
         this.manaCost = manaCost;
         this.spellPower = spellPower;
