@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class TileFactory {
     private List<Supplier<Player>> playerList;
     Map<Character, Supplier<Enemy>> enemiesMap;
-    private Player selcted;
+    private Player selected;
 
     public TileFactory() {
         this.playerList = initPlayers();
@@ -66,10 +66,10 @@ public class TileFactory {
 
     }
     public Player producePLayer(int idx){
-        if(selcted == null){
-            selcted = playerList.get(idx).get();
+        if(selected == null){
+            selected = playerList.get(idx).get();
         }
-        return selcted;
+        return selected;
     }
     public Wall produceWall(Position position, PositionChangedCallback positionChangedCallback){
         return new Wall(position,positionChangedCallback);

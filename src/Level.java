@@ -16,17 +16,11 @@ public class Level {
         this.playerPosition = player.position;
     }
 
-    public void run(){
-        while (player.alive() & !Enemies.isEmpty())
-        {
-            gameTick();
-        }
-        if (player.alive())
-            System.out.println("Level Finished!");
+    public boolean won(){
+        return player.alive() & !Enemies.isEmpty();
     }
 
-    public void gameTick(){
-        System.out.println(board.toString());
+    public boolean processTick(){
         playerPosition = player.performAction(Enemies);
         tileForPlayer = board.get(playerPosition);
         player.interact(tileForPlayer);
@@ -35,10 +29,16 @@ public class Level {
             tileForEnemy = board.get(enemyPosition);
             e.interact(tileForEnemy);
         }
+        return player.alive();
     }
 
     public void removeEnemy(Enemy enemy){
         board.remove(enemy);
         Enemies.remove(enemy);
     }
+
+    public String toString(){
+        return board.toString() + player.describe();
+    }
+
 }
