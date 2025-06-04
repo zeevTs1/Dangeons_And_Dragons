@@ -30,9 +30,6 @@ public abstract class Tile implements Visited, Comparable<Tile> {
 
     @Override
     public String toString() {
-        return "Tile{" +
-                "tile=" + tile +
-                ", position=" + position +
-                '}';
+        return String.valueOf(tile);
     }
 }

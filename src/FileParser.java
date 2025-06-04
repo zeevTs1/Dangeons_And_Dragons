@@ -14,12 +14,13 @@ public class FileParser {
 
 
     private TileFactory tileFactory;
-    private MessageCallback messageCallback;
+    private MessageCallBack messageCallback;
     private int playerIndex;
     private Player player;
     private List<Enemy> enemies;
+    Level level;
 
-    public FileParser(TileFactory factory, MessageCallback messageCallback, int index) {
+    public FileParser(TileFactory factory, MessageCallBack messageCallback, int index) {
         this.tileFactory = factory;
         this.messageCallback = messageCallback;
         this.playerIndex = index;
@@ -47,17 +48,20 @@ public class FileParser {
                 Tile tile;
                 Position tilePosition = new Position(x,y);
                 if(c==EMPTY){
-                    tile = tileFactory.produceEmpty(tilePosition, );
+                    tile = tileFactory.produceEmpty(tilePosition);
                 }
                 else if(c==WALL){
-                    tile = tileFactory.produceEmpty(tilePosition, );
+                    tile = tileFactory.produceWall(tilePosition);
                 }
                 else if(c==PLAYER){
                     player = tileFactory.producePLayer(playerIndex);
+                    player.setDeathCallBack(()->player.toString());
                     tile = player;
                 }
                 else{
-                    Enemy e = tileFactory.produceEnemy(c, tilePosition, );
+                    Enemy e = tileFactory.produceEnemy(c, tilePosition);
+                    e.setMessageCallBack(CLI::Display);
+                    e.setDeathCallBack(()-> level.removeEnemy(e));
                     enemies.add(e);
                     tile = e;
                 }
@@ -72,6 +76,7 @@ public class FileParser {
     public Level parseLevel(File file) throws IOException {
         Tile[][] tiles = tileArrayParser(charArrayParser(file));
         GameBoard board = new GameBoard(tiles);
-        return new Level(board, player, enemies);
+        level = new Level(board, player, enemies);
+        return level;
     }
 }

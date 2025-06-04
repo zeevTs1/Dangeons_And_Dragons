@@ -40,11 +40,11 @@ public class GameBoard {
         for(int m=0; m < tiles.size(); m++){
             Tile tile = tiles.get(m);
             if (rowCounter == cloumns) {
-                boardAsString = boardAsString + tile.getTile() + "\n";
+                boardAsString = boardAsString + tile.toString() + "\n";
                 rowCounter = 1;
             }
             else {
-                boardAsString = boardAsString + tile.getTile();
+                boardAsString = boardAsString + tile.toString();
                 rowCounter++;
             }
         }

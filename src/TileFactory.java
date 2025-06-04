@@ -55,9 +55,11 @@ public class TileFactory {
     public List<Player> listPlayers(){
         return playerList.stream().map(Supplier::get).collect(Collectors.toList());
     }
-    public Enemy produceEnemy(char tile,Position position, PositionChangedCallback positionChangedCallback, MessegeCallBack messegeCallBack, DeathCallBack deathCallBack){
+    public Enemy produceEnemy(char tile,Position position){
         if(enemiesMap.containsKey(tile)){
-            return enemiesMap.get(tile).get().initialize(position, positionChangedCallback,messegeCallBack, deathCallBack);
+            Enemy enemy = enemiesMap.get(tile).get();
+            enemy.setPosition(position);
+            return enemy;
         }else{
             System.out.println(String.format("Error while parsing the file : no enemy for tile %c at position %s ", tile,position));
             System.exit(-1);
@@ -71,11 +73,11 @@ public class TileFactory {
         }
         return selected;
     }
-    public Wall produceWall(Position position, PositionChangedCallback positionChangedCallback){
-        return new Wall(position,positionChangedCallback);
+    public Wall produceWall(Position position){
+        return new Wall(position);
     }
-    public Empty produceEmpty(Position position, PositionChangedCallback positionChangedCallback){
-        return new Empty(position,positionChangedCallback);
+    public Empty produceEmpty(Position position){
+        return new Empty(position);
     }
 
 }

@@ -85,7 +85,7 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     protected boolean alive(){
-        return health.getAmount()==0;
+        return health.getAmount()>0;
     }
 
     protected void setDeathCallBack(DeathCallBack deathCallBack){
@@ -95,7 +95,7 @@ public abstract class Unit extends Tile implements Visitor {
         this.messageCallBack = messageCallBack;
     }
 
-    public String toString(){
+    public String describe(){
         return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
     }
 }

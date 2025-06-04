@@ -109,13 +109,13 @@ public abstract class Player extends Unit {
     public void visit(Empty tile){
         swapPosition(tile);
     }
-    public void visit(Wall wall){
+    public void visit(Wall wall){}
+    public void accept(Visitor v){v.visit(this);}
+    public void visit(Player player){}
 
-    }
-    public void accept(Visitor v){
-
-    }
-    public void visit(Player player){
-
+    @Override
+    public String toString()
+    {
+        return alive() ? super.toString() : "X";
     }
 }

@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -16,16 +17,20 @@ public class GameRunner {
         tileFactory = new TileFactory();
     }
 
-    public void initialize(String levelDirectory){
+    public void initialize(String levelDirectory) {
         int indexReceived = choosePlayer();
 
         FileParser parser = new FileParser(tileFactory, this::sendMessage, indexReceived);
         File root = new File(levelDirectory);
-        try {
-            levels = Arrays.stream(Objects.requireNonNull(root.listFiles())).map(parser::parseLevel).collect(Collectors.toList());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        levels = Arrays.stream(Objects.requireNonNull(root.listFiles()))
+                .map(file -> {
+                    try {
+                        return parser.parseLevel(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Failed to parse level file: " + file.getName(), e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 
     public void start(){
