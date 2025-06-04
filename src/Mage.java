@@ -25,7 +25,7 @@ public class Mage extends Player {
         mana.AddCapacity(25*level);
         mana.AddAmount(this.mana.getCapacity()/4);
         spellPower +=spellPower + 10*level;
-
+        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),gainHealth(),gainAttack(),gainDefense()));
     }
 
 
@@ -55,7 +55,9 @@ public class Mage extends Player {
                     possibleEnemies.remove(selectedEnemy);
                 hits++;
             }
+            messageCallBack.send(String.format(""));
         }
     }
+
 
 }

@@ -5,12 +5,15 @@ import java.util.Random;
 public class Warrior extends Player{
     private int abilityCoolDown;
     private int remainingCoolDown;
-
-
+    private static final int WARRIOR_ATTACK_BONUS=2;
+    private static final int WARRIOR_DEFENSE_BONUS=1;
+    private static final int WARRIOR_HEALTH_BONUS=10;
+    private String specialAbilityName;
     public Warrior(String name, int healthCapacity, int attack, int defense, int abilityCoolDown ) {
         super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.abilityCoolDown = abilityCoolDown;
         remainingCoolDown = 0;
+        specialAbilityName = "Avenger's Shield";
     }
 
     @Override
@@ -29,6 +32,7 @@ public class Warrior extends Player{
                 selectedEnemy.health.ReduceAmount(this.getDefense()/10);
             }
             remainingCoolDown = abilityCoolDown;
+            messageCallBack.send(String.format(""));
         }
     }
 
@@ -36,9 +40,13 @@ public class Warrior extends Player{
     public void levelUp(){
         super.levelUp();
         remainingCoolDown = 0;
-        this.health.setCapacity(this.health.getCapacity() + 5* this.level);
-        this.attack +=2*level;
-        this.defense += level;
+        int healthGained = gainHealth();
+        int attackGained = gainAttack();
+        int defenseGained = gainDefense();
+        health.AddCapacity(healthGained);
+        attack+=attackGained;
+        defense+=defenseGained;
+        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),healthGained,attackGained,defenseGained));
     }
 
 
@@ -46,5 +54,16 @@ public class Warrior extends Player{
     public void onGameTick(){
         this.remainingCoolDown=Math.max(this.remainingCoolDown-1,0);
     }
+
+    protected int gainHealth(){
+        return level*WARRIOR_HEALTH_BONUS;
+    }
+    protected int gainAttack(){
+        return level*WARRIOR_ATTACK_BONUS ;
+    }
+    protected int gainDefense(){
+        return level*WARRIOR_DEFENSE_BONUS;
+    }
+
 
 }

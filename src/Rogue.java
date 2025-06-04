@@ -5,18 +5,23 @@ import java.util.Random;
 public class Rogue extends Player {
     private int cost;
     private int currentEnergy;
+    private static final int ROUGE_ATTACK_BONUS=2;
+    private String specialAbilityName;
 
     public Rogue( String name, int healthCapacity, int attack, int defense, int cost) {
         super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.cost = cost;
         this.currentEnergy = 100;
+        specialAbilityName = "Fan of Knives";
     }
 
     @Override
     public void levelUp(){
         super.levelUp();
         currentEnergy = 100;
-        attack = attack + 3* level;
+        int attackGained= gainAttack();
+        attack += attackGained;
+        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),gainHealth(),attackGained,gainDefense()));
     }
 
     @Override
@@ -37,7 +42,14 @@ public class Rogue extends Player {
                 // enemy may die and we need to do something about it later on
             }
         }
+        messageCallBack.send(String.format(""));
     }
+
+
+    protected int gainAttack(){
+        return level*ROUGE_ATTACK_BONUS ;
+    }
+
 
 
 
