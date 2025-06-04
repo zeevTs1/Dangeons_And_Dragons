@@ -1,14 +1,7 @@
-public class CLI implements EnemyDeathCallBack,MessageCallBack,PlayerDeathCallBack,PositionChangedCallBack {
+public class CLI {
 
-
-    @Override
-    public void send(String message) {
+    public void Display(String message) {
         System.out.println(message);
-    }
-
-    @Override
-    public void call() {
-        System.out.println();
     }
 
 }

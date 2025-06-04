@@ -6,6 +6,9 @@ public abstract class Unit extends Tile implements Visitor {
     protected int attack;
     protected int defense;
     protected MessageCallBack messageCallBack;
+    protected DeathCallBack deathCallBack;
+
+
 
     public Unit(char tile, Position position, String name, Resource health, int attack, int defense){
         super(tile, position);
@@ -20,6 +23,10 @@ public abstract class Unit extends Tile implements Visitor {
         int defencePoints = defender.defense();
         if(attackPoints - defencePoints >0){
             defender.getHealth().ReduceAmount(attackPoints - defencePoints);
+        }
+        if(!defender.alive()){
+            defender.deathCallBack.Call();
+            messageCallBack.send(String.format(""));
         }
         messageCallBack.send(String.format(""));
     }
@@ -79,6 +86,13 @@ public abstract class Unit extends Tile implements Visitor {
 
     protected boolean alive(){
         return health.getAmount()==0;
+    }
+
+    protected void setDeathCallBack(DeathCallBack deathCallBack){
+        this.deathCallBack = deathCallBack;
+    }
+    protected void setMessageCallBack(MessageCallBack messageCallBack){
+        this.messageCallBack = messageCallBack;
     }
 
     public String toString(){

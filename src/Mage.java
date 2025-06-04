@@ -51,8 +51,11 @@ public class Mage extends Player {
                 int actualAttack = this.spellPower - selectedEnemy.defense();
                 if(actualAttack>0)
                     selectedEnemy.getHealth().ReduceAmount(actualAttack);
-                if(selectedEnemy.getHealth().getAmount()==0)
+                if(selectedEnemy.alive()){
                     possibleEnemies.remove(selectedEnemy);
+                    selectedEnemy.deathCallBack.Call();
+                    messageCallBack.send(String.format(""));
+                }
                 hits++;
             }
             messageCallBack.send(String.format(""));

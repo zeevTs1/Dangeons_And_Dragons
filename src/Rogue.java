@@ -38,8 +38,12 @@ public class Rogue extends Player {
             if(getPosition().range(enemy.getPosition()) < 2) {
                 int actualAttack = attack - enemy.defense();
                 enemy.getHealth().ReduceAmount(actualAttack);
+                if(!enemy.alive()){
+                    enemies.remove(enemy);
+                    enemy.deathCallBack.Call();
+                    messageCallBack.send(String.format(""));
+                }
 
-                // enemy may die and we need to do something about it later on
             }
         }
         messageCallBack.send(String.format(""));

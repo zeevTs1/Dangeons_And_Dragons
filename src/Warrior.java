@@ -30,6 +30,11 @@ public class Warrior extends Player{
                 int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());
                 Enemy selectedEnemy = possibleEnemies.get(enemyIndex);
                 selectedEnemy.health.ReduceAmount(this.getDefense()/10);
+                if(!selectedEnemy.alive()){
+                    enemies.remove(selectedEnemy);
+                    selectedEnemy.deathCallBack.Call();
+                    messageCallBack.send(String.format(""));
+                }
             }
             remainingCoolDown = abilityCoolDown;
             messageCallBack.send(String.format(""));
