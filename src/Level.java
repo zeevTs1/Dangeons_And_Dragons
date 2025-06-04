@@ -9,6 +9,7 @@ public class Level {
     public Tile tileForPlayer;
     public Tile tileForEnemy;
 
+
     public Level(GameBoard gameBoard, Player player, List<Enemy> enemies){
         board = gameBoard;
         this.player = player;

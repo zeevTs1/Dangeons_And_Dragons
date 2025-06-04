@@ -5,7 +5,7 @@ public abstract class Unit extends Tile implements Visitor {
     protected Resource health;
     protected int attack;
     protected int defense;
-
+    protected MessageCallBack messageCallBack;
 
     public Unit(char tile, Position position, String name, Resource health, int attack, int defense){
         super(tile, position);
@@ -21,6 +21,7 @@ public abstract class Unit extends Tile implements Visitor {
         if(attackPoints - defencePoints >0){
             defender.getHealth().ReduceAmount(attackPoints - defencePoints);
         }
+        messageCallBack.send(String.format(""));
     }
 
     public void interact(Tile tile){

@@ -2,14 +2,27 @@ import java.util.List;
 
 public abstract class Player extends Unit {
     public static final char playerTile = '@';
-
     protected static final int REQ_EXP=50;
     protected static final int ATTACK_BONUS=4;
     protected static final int DEFENSE_BONUS=1;
-    protected static final int HEIGHT_BONUS=10;
+    protected static final int HEALTH_BONUS=10;
 
 
+    public int getExperience() {
+        return experience;
+    }
 
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 
     protected int experience;
     protected int level;
@@ -54,7 +67,7 @@ public abstract class Player extends Unit {
     }
 
     protected int gainHealth(){
-        return level*HEIGHT_BONUS;
+        return level*HEALTH_BONUS;
     }
     protected int gainAttack(){
         return level*ATTACK_BONUS;
