@@ -79,7 +79,8 @@ public class FileParser {
     public Level parseLevel(File file) throws IOException {
         Tile[][] tiles = tileArrayParser(charArrayParser(file));
         GameBoard board = new GameBoard(tiles);
-        level = new Level(board, player, enemies);
+        level = new Level(board, player, new ArrayList<>(enemies));
+        enemies.clear();
         return level;
     }
 }
