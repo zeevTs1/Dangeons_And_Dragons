@@ -19,16 +19,20 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public void battle(Unit defender){
+        messageCallBack.send(String.format("%s engaged in combat with %s", getName(), defender.getName()));
+        messageCallBack.send(describe());
+        messageCallBack.send(defender.describe());
         int attackPoints = attack();
-        int defencePoints = defender.defense();
-        if(attackPoints - defencePoints >0){
-            defender.getHealth().ReduceAmount(attackPoints - defencePoints);
+        int defensePoints = defender.defense();
+
+        if(attackPoints - defensePoints >0){
+            defender.getHealth().ReduceAmount(attackPoints - defensePoints);
+            messageCallBack.send(String.format("%s dealt %d damage to %s",getName(), attackPoints - defensePoints, defender.getName()));
         }
         if(!defender.alive()){
             defender.deathCallBack.Call();
-            messageCallBack.send(String.format(""));
+            messageCallBack.send(String.format("%s was killed by %s", defender.getName(), getName()));
         }
-        messageCallBack.send(String.format(""));
     }
 
     public void interact(Tile tile){
@@ -37,12 +41,16 @@ public abstract class Unit extends Tile implements Visitor {
 
     public int attack(){
         Random random = new Random();
-        return random.nextInt(getAttack()+1);
+        int attackRolled = random.nextInt(getAttack()+1);
+        messageCallBack.send(String.format("%s rolled %d attack points", getName(), attackRolled));
+        return attackRolled;
     }
 
     public int defense(){
         Random random = new Random();
-        return random.nextInt(getDefense()+1);
+        int defenseRolled = random.nextInt(getDefense()+1);
+        messageCallBack.send(String.format("%s rolled %d defense points", getName(), defenseRolled));
+        return defenseRolled;
     }
 
 
@@ -56,32 +64,16 @@ public abstract class Unit extends Tile implements Visitor {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Resource getHealth() {
         return health;
-    }
-
-    public void setHealth(Resource health) {
-        this.health = health;
     }
 
     public int getDefense() {
         return defense;
     }
 
-    public void setDefense(int defense) {
-        this.defense = defense;
-    }
-
     public int getAttack() {
         return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
     }
 
     protected boolean alive(){
@@ -96,6 +88,6 @@ public abstract class Unit extends Tile implements Visitor {
     }
 
     public String describe(){
-        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth(), getAttack(), getDefense());
+        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d", getName(), getHealth().getAmount(), getAttack(), getDefense());
     }
 }

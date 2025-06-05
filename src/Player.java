@@ -12,17 +12,11 @@ public abstract class Player extends Unit {
         return experience;
     }
 
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
 
     public int getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
-    }
 
     protected int experience;
     protected int level;
@@ -84,18 +78,22 @@ public abstract class Player extends Unit {
     public Position performAction(List<Enemy> enemies) {
         char action = inputProvider.getInput();
         Position newPosition = position;
+
         if (action == 'e')
             castSpecialAbility(enemies);
-        else if (action == 'd')
-            newPosition = newPosition.add(1,0);
-        else if (action == 'a')
-            newPosition = newPosition.add(-1,0);
-        else if (action == 'w')
-            newPosition = newPosition.add(0,-1);
-        else if (action == 's')
-            newPosition = newPosition.add(0,1);
+        else {
+            if (action == 'd')
+                newPosition = newPosition.add(1, 0);
+            else if (action == 'a')
+                newPosition = newPosition.add(-1, 0);
+            else if (action == 'w')
+                newPosition = newPosition.add(0, -1);
+            else if (action == 's')
+                newPosition = newPosition.add(0, 1);
 
-        onGameTick();
+            onGameTick();
+        }
+
         return newPosition;
     }
 

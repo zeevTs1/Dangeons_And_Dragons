@@ -56,6 +56,7 @@ public class FileParser {
                 }
                 else if(c==PLAYER){
                     player = tileFactory.producePLayer(playerIndex,tilePosition);
+                    player.setMessageCallBack(CLI::Display);
                     player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
                     player.setDeathCallBack(()->player.toString());
                     tile = player;

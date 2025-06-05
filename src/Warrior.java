@@ -7,8 +7,12 @@ public class Warrior extends Player{
     private int remainingCoolDown;
     private static final int WARRIOR_ATTACK_BONUS=2;
     private static final int WARRIOR_DEFENSE_BONUS=1;
-    private static final int WARRIOR_HEALTH_BONUS=10;
+    private static final int WARRIOR_HEALTH_BONUS=5;
+    private static final int WARRIOR_ABILITY_BONUS=10;
+    private static final int WARRIOR_ABILITY_DAMAGE_PERCENTAGE=10;
     private String specialAbilityName;
+
+
     public Warrior(String name, int healthCapacity, int attack, int defense, int abilityCoolDown ) {
         super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.abilityCoolDown = abilityCoolDown;
@@ -16,10 +20,16 @@ public class Warrior extends Player{
         specialAbilityName = "Avenger's Shield";
     }
 
+    public String getSpecialAbilityName() {
+        return specialAbilityName;
+    }
+
     @Override
     public void castSpecialAbility(List<Enemy> enemies) {
         if(remainingCoolDown == 0){
-            this.health.AddCapacity(10* defense);
+            int healthBonus = gainAbilityHealth();
+            messageCallBack.send(String.format("%s used %s, healing for: %d.", getName(), getSpecialAbilityName(), healthBonus));
+            this.health.AddAmount(healthBonus);
             List<Enemy> possibleEnemies = new ArrayList<>();
             for(Enemy enemy : enemies){
                 if(getPosition().range(enemy.getPosition()) < 3)
@@ -29,15 +39,22 @@ public class Warrior extends Player{
                 Random randomEnemy = new Random();
                 int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());
                 Enemy selectedEnemy = possibleEnemies.get(enemyIndex);
-                selectedEnemy.health.ReduceAmount(this.getDefense()/10);
+                int attackPoints = getHealth().getCapacity()/WARRIOR_ABILITY_DAMAGE_PERCENTAGE;
+                int defensePoints = selectedEnemy.defense();
+                messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), selectedEnemy.getName(), attackPoints - defensePoints));
+                selectedEnemy.health.ReduceAmount(attackPoints-defensePoints);
                 if(!selectedEnemy.alive()){
                     enemies.remove(selectedEnemy);
                     selectedEnemy.deathCallBack.Call();
-                    messageCallBack.send(String.format(""));
+                    addExperience(selectedEnemy.getExperienceValue());
+                    messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
                 }
             }
             remainingCoolDown = abilityCoolDown;
-            messageCallBack.send(String.format(""));
+        }
+        else{
+            onGameTick();
+            messageCallBack.send(String.format("%s tried to cast %s, but there is a cooldown: %d", getName(), getSpecialAbilityName(), getRemainingCoolDown()));
         }
     }
 
@@ -68,6 +85,18 @@ public class Warrior extends Player{
     }
     protected int gainDefense(){
         return level*WARRIOR_DEFENSE_BONUS;
+    }
+    protected int gainAbilityHealth(){
+        return defense*WARRIOR_ABILITY_BONUS;
+    }
+
+    public int getRemainingCoolDown() {
+        return remainingCoolDown;
+    }
+
+    @Override
+    public String describe(){
+        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d\t\tCooldown: %d", getName(), getHealth().getAmount(), getAttack(), getDefense(), getLevel(), getExperience(), getRemainingCoolDown());
     }
 
 
