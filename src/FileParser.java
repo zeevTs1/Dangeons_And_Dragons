@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileParser {
     public static final char EMPTY='.';
@@ -17,7 +18,7 @@ public class FileParser {
     private MessageCallBack messageCallback;
     private int playerIndex;
     private Player player;
-    private List<Enemy> enemies;
+    private List<Enemy> enemies = new ArrayList<>();
     Level level;
 
     public FileParser(TileFactory factory, MessageCallBack messageCallback, int index) {
@@ -54,7 +55,8 @@ public class FileParser {
                     tile = tileFactory.produceWall(tilePosition);
                 }
                 else if(c==PLAYER){
-                    player = tileFactory.producePLayer(playerIndex);
+                    player = tileFactory.producePLayer(playerIndex,tilePosition);
+                    player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
                     player.setDeathCallBack(()->player.toString());
                     tile = player;
                 }
@@ -65,9 +67,10 @@ public class FileParser {
                     enemies.add(e);
                     tile = e;
                 }
-                tiles[x][y] = tile;
+                tiles[y][x] = tile;
                 x++;
             }
+            x=0;
             y++;
         }
         return tiles;

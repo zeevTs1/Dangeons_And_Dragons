@@ -18,7 +18,7 @@ public class Level {
     }
 
     public boolean won(){
-        return player.alive() & !Enemies.isEmpty();
+        return player.alive() & Enemies.isEmpty();
     }
 
     public boolean processTick(){

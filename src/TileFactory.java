@@ -46,7 +46,8 @@ public class TileFactory {
         () ->new Monster('C', "Queen Cersei",  100, 10, 10, 1, 1000),
         () ->new Monster('K', "Night's King",  5000, 300, 150, 8, 5000),
         () ->new Trap('Q',"Queen's Trap",250,50,10,100,3,7),
-        () ->new Trap('D',"Death Trap",500,100,20,250,1,10)
+        () ->new Trap('D',"Death Trap",500,100,20,250,1,10),
+        () ->new Trap('B',"Bonus Trap",1,1,1,250,1,5)
         );
 
         return enemies.stream().collect(Collectors.toMap(s -> s.get().getTile(), Function.identity()));
@@ -67,9 +68,10 @@ public class TileFactory {
         }
 
     }
-    public Player producePLayer(int idx){
+    public Player producePLayer(int idx,Position position){
         if(selected == null){
             selected = playerList.get(idx).get();
+            selected.setPosition(position);
         }
         return selected;
     }
