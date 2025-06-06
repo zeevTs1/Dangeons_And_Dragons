@@ -1,20 +1,21 @@
 import java.util.List;
 
 public class Level {
-    public GameBoard board;
-    public Player player;
-    public List<Enemy> Enemies;
-    public Position playerPosition;
-    public Position enemyPosition;
-    public Tile tileForPlayer;
-    public Tile tileForEnemy;
+    private GameBoard board;
+    private Player player;
+    private List<Enemy> Enemies;
+    private Position playerStartingPosition;
 
 
-    public Level(GameBoard gameBoard, Player player, List<Enemy> enemies){
+    public Level(GameBoard gameBoard, Player player, List<Enemy> enemies, Position playerStartingPosition){
         board = gameBoard;
         this.player = player;
         this.Enemies = enemies;
-        this.playerPosition = player.position;
+        this.playerStartingPosition = new Position(playerStartingPosition);
+    }
+
+    public void initializePlayerPosition(){
+        player.setPosition(playerStartingPosition);
     }
 
     public boolean won(){
@@ -22,12 +23,16 @@ public class Level {
     }
 
     public boolean processTick(){
-        playerPosition = player.performAction(Enemies);
-        tileForPlayer = board.get(playerPosition);
+        Position playerActionPosition;
+        Position enemyActionPosition;
+        Tile tileForPlayer;
+        Tile tileForEnemy;
+        playerActionPosition = player.performAction(Enemies);
+        tileForPlayer = board.get(playerActionPosition);
         player.interact(tileForPlayer);
         for(Enemy e : Enemies){
-            enemyPosition = e.performAction(player);
-            tileForEnemy = board.get(enemyPosition);
+            enemyActionPosition = e.performAction(player);
+            tileForEnemy = board.get(enemyActionPosition);
             e.interact(tileForEnemy);
         }
         return player.alive();

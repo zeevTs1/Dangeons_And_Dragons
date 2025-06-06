@@ -58,18 +58,18 @@ public class Warrior extends Player{
         }
     }
 
-    @Override
-    public void levelUp(){
-        super.levelUp();
-        remainingCoolDown = 0;
-        int healthGained = gainHealth();
-        int attackGained = gainAttack();
-        int defenseGained = gainDefense();
-        health.AddCapacity(healthGained);
-        attack+=attackGained;
-        defense+=defenseGained;
-        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),healthGained,attackGained,defenseGained));
-    }
+//    @Override
+//    public void levelUp(){
+//        super.levelUp();
+//        remainingCoolDown = 0;
+//        int healthGained = gainHealth();
+//        int attackGained = gainAttack();
+//        int defenseGained = gainDefense();
+//        health.AddCapacity(healthGained);
+//        attack+=attackGained;
+//        defense+=defenseGained;
+//        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),healthGained,attackGained,defenseGained));
+//    }
 
 
     @Override
@@ -78,14 +78,20 @@ public class Warrior extends Player{
     }
 
     protected int gainHealth(){
-        return level*WARRIOR_HEALTH_BONUS;
+        return level*(WARRIOR_HEALTH_BONUS+HEALTH_BONUS);
     }
     protected int gainAttack(){
-        return level*WARRIOR_ATTACK_BONUS ;
+        return level*(WARRIOR_ATTACK_BONUS+ATTACK_BONUS) ;
     }
     protected int gainDefense(){
-        return level*WARRIOR_DEFENSE_BONUS;
+        return level*(WARRIOR_DEFENSE_BONUS+DEFENSE_BONUS);
     }
+
+    @Override
+    public void gainSpecialAbility(){
+        remainingCoolDown=0;
+    }
+
     protected int gainAbilityHealth(){
         return defense*WARRIOR_ABILITY_BONUS;
     }
@@ -94,9 +100,13 @@ public class Warrior extends Player{
         return remainingCoolDown;
     }
 
+    public int getAbilityCoolDown() {
+        return abilityCoolDown;
+    }
+
     @Override
     public String describe(){
-        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d\t\tCooldown: %d", getName(), getHealth().getAmount(), getAttack(), getDefense(), getLevel(), getExperience(), getRemainingCoolDown());
+        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d/%d\t\tCooldown: %d/%d", getName(), getHealth(), getAttack(), getDefense(), getLevel(), getExperience(),getLevel()*REQ_EXP, getRemainingCoolDown(), getAbilityCoolDown());
     }
 
 

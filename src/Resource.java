@@ -37,6 +37,6 @@ public class Resource {
         amount = capacity;
     }
     public String toString(){
-        return String.format("%d%d",amount,capacity);
+        return String.format("%d/%d",amount,capacity);
     }
 }

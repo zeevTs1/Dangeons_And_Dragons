@@ -38,6 +38,8 @@ public abstract class Player extends Unit {
 
     public abstract void onGameTick();
 
+    public abstract void gainSpecialAbility();
+
     protected void addExperience(int experienceGained) {
         this.experience += experienceGained;
         int nextLevelReq = levelUpRequirement();
@@ -58,6 +60,8 @@ public abstract class Player extends Unit {
         health.restore();
         attack+=attackGained;
         defense+=defenseGained;
+        gainSpecialAbility();
+        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),healthGained,attackGained,defenseGained));
     }
 
     protected int gainHealth(){
@@ -98,10 +102,13 @@ public abstract class Player extends Unit {
     }
 
     public void visit(Enemy enemy){
+        battle(enemy);
         if(!enemy.alive()){
-            addExperience(enemy.experienceValue);
+            swapPosition(enemy);
+            enemy.deathCallBack.Call();
+            addExperience(enemy.getExperienceValue());
+            messageCallBack.send(String.format("%s died. %s gained %d experience.", enemy.getName(), getName(), enemy.getExperienceValue()));
         }
-
     }
 
     public void visit(Empty tile){

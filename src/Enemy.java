@@ -16,8 +16,9 @@ public abstract class Enemy extends Unit{
 
     public void visit(Player player){
         battle(player);
-        if(player.health.getAmount()==0){
-            player.setTile('X');
+        if(!player.alive()){
+            player.deathCallBack.Call();
+            messageCallBack.send(String.format("%s was killed by %s.", player.getName(), getName()));
         }
     }
     public void visit(Enemy enemy){}

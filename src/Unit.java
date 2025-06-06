@@ -29,10 +29,6 @@ public abstract class Unit extends Tile implements Visitor {
             defender.getHealth().ReduceAmount(attackPoints - defensePoints);
             messageCallBack.send(String.format("%s dealt %d damage to %s",getName(), attackPoints - defensePoints, defender.getName()));
         }
-        if(!defender.alive()){
-            defender.deathCallBack.Call();
-            messageCallBack.send(String.format("%s was killed by %s", defender.getName(), getName()));
-        }
     }
 
     public void interact(Tile tile){

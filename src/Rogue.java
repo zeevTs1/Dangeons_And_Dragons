@@ -30,6 +30,11 @@ public class Rogue extends Player {
     }
 
     @Override
+    public void gainSpecialAbility() {
+
+    }
+
+    @Override
     public void castSpecialAbility(List<Enemy> enemies) {
         if(currentEnergy>=cost){
             currentEnergy = currentEnergy - cost;

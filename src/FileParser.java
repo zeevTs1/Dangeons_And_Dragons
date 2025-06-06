@@ -19,7 +19,7 @@ public class FileParser {
     private int playerIndex;
     private Player player;
     private List<Enemy> enemies = new ArrayList<>();
-    Level level;
+    private Position startingPosition;
 
     public FileParser(TileFactory factory, MessageCallBack messageCallback, int index) {
         this.tileFactory = factory;
@@ -55,16 +55,16 @@ public class FileParser {
                     tile = tileFactory.produceWall(tilePosition);
                 }
                 else if(c==PLAYER){
-                    player = tileFactory.producePLayer(playerIndex,tilePosition);
+                    startingPosition=tilePosition;
+                    player = tileFactory.producePLayer(playerIndex, tilePosition);
                     player.setMessageCallBack(CLI::Display);
                     player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
-                    player.setDeathCallBack(()->player.toString());
+                    player.setDeathCallBack(() -> player.toString());
                     tile = player;
                 }
                 else{
                     Enemy e = tileFactory.produceEnemy(c, tilePosition);
                     e.setMessageCallBack(CLI::Display);
-                    e.setDeathCallBack(()-> level.removeEnemy(e));
                     enemies.add(e);
                     tile = e;
                 }
@@ -74,13 +74,20 @@ public class FileParser {
             x=0;
             y++;
         }
+
+
         return tiles;
     }
 
     public Level parseLevel(File file) throws IOException {
         Tile[][] tiles = tileArrayParser(charArrayParser(file));
         GameBoard board = new GameBoard(tiles);
-        level = new Level(board, player, new ArrayList<>(enemies));
+        Level level = new Level(board, player, new ArrayList<>(enemies), startingPosition);
+
+        for (Enemy e : enemies) {
+            e.setDeathCallBack(() -> level.removeEnemy(e));
+        }
+
         enemies.clear();
         return level;
     }

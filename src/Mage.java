@@ -35,6 +35,11 @@ public class Mage extends Player {
     }
 
     @Override
+    public void gainSpecialAbility() {
+
+    }
+
+    @Override
     public void castSpecialAbility(List<Enemy> enemies){
         if(manaCost<=this.mana.getAmount()) {
             this.mana.ReduceAmount(manaCost);

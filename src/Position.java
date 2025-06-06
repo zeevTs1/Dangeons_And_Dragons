@@ -7,6 +7,10 @@ public class Position implements Comparable<Position> {
         this.y = y;
     }
 
+    public Position(Position position){
+        this(position.getX(), position.getY());
+    }
+
     public int getX() {
         return x;
     }
