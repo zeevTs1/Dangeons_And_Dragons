@@ -8,7 +8,7 @@ public class Rogue extends Player {
     private static final int ROUGE_ATTACK_BONUS=3;
     private static final int ROUGE_MAX_ENERGY=100;
     private static final int ROUGE_ENERGY_BONUS=10;
-    private static final int ROUGE_SPECIAL_ABILITY_RANGE=3;
+    private static final int ROUGE_SPECIAL_ABILITY_RANGE=2;
     private static final String specialAbilityName = "Fan of Knives";
 
     public Rogue(String name, int healthCapacity, int attack, int defense, int cost) {
@@ -53,8 +53,8 @@ public class Rogue extends Player {
                     enemy.getHealth().ReduceAmount(actualAttack);
                     if(!enemy.alive()){
                         deadEnemies.add(enemy);
-                        addExperience(enemy.getExperienceValue());
                         messageCallBack.send(String.format("%s died. %s gained %d experience.", enemy.getName(), getName(), enemy.getExperienceValue()));
+                        addExperience(enemy.getExperienceValue());
                     }
 
                 }

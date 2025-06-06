@@ -30,4 +30,9 @@ public class Trap extends Enemy{
         return visible;
     }
 
+    @Override
+    public String toString(){
+        return isVisible() ? super.toString() : ".";
+    }
+
 }

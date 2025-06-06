@@ -74,8 +74,8 @@ public class Mage extends Player {
                 if(!selectedEnemy.alive()){
                     possibleEnemies.remove(selectedEnemy);
                     selectedEnemy.deathCallBack.Call();
-                    addExperience(selectedEnemy.getExperienceValue());
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
+                    addExperience(selectedEnemy.getExperienceValue());
                 }
                 hits++;
             }

@@ -11,16 +11,8 @@ public class Resource {
         return amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = Math.min(amount,capacity);
-    }
-
     public int getCapacity() {
         return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
     }
 
     public void AddAmount(int givenAmount){

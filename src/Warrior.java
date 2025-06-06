@@ -10,6 +10,7 @@ public class Warrior extends Player{
     private static final int WARRIOR_HEALTH_BONUS=5;
     private static final int WARRIOR_ABILITY_BONUS=10;
     private static final int WARRIOR_ABILITY_DAMAGE_PERCENTAGE=10;
+    private static final int WARRIOR_SPECIAL_ABILITY_RANGE=3;
     private static final String specialAbilityName="Avenger's Shield";
 
 
@@ -28,7 +29,7 @@ public class Warrior extends Player{
             this.health.AddAmount(healthBonus);
             List<Enemy> possibleEnemies = new ArrayList<>();
             for(Enemy enemy : enemies){
-                if(getPosition().range(enemy.getPosition()) < 3)
+                if(getPosition().range(enemy.getPosition()) < WARRIOR_SPECIAL_ABILITY_RANGE)
                     possibleEnemies.add(enemy);
             }
             if(!possibleEnemies.isEmpty()){
@@ -42,8 +43,8 @@ public class Warrior extends Player{
                 selectedEnemy.health.ReduceAmount(actualAttack);
                 if(!selectedEnemy.alive()){
                     selectedEnemy.deathCallBack.Call();
-                    addExperience(selectedEnemy.getExperienceValue());
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
+                    addExperience(selectedEnemy.getExperienceValue());
                 }
             }
             remainingCoolDown = abilityCoolDown;
