@@ -10,25 +10,21 @@ public class Warrior extends Player{
     private static final int WARRIOR_HEALTH_BONUS=5;
     private static final int WARRIOR_ABILITY_BONUS=10;
     private static final int WARRIOR_ABILITY_DAMAGE_PERCENTAGE=10;
-    private String specialAbilityName;
+    private static final String specialAbilityName="Avenger's Shield";
 
 
     public Warrior(String name, int healthCapacity, int attack, int defense, int abilityCoolDown ) {
-        super(new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense);
+        super(null, name, new Resource(healthCapacity,healthCapacity), attack, defense);
         this.abilityCoolDown = abilityCoolDown;
         remainingCoolDown = 0;
-        specialAbilityName = "Avenger's Shield";
     }
 
-    public String getSpecialAbilityName() {
-        return specialAbilityName;
-    }
 
     @Override
     public void castSpecialAbility(List<Enemy> enemies) {
         if(remainingCoolDown == 0){
             int healthBonus = gainAbilityHealth();
-            messageCallBack.send(String.format("%s used %s, healing for: %d.", getName(), getSpecialAbilityName(), healthBonus));
+            messageCallBack.send(String.format("%s used %s, healing for: %d.", getName(), specialAbilityName, healthBonus));
             this.health.AddAmount(healthBonus);
             List<Enemy> possibleEnemies = new ArrayList<>();
             for(Enemy enemy : enemies){
@@ -41,10 +37,10 @@ public class Warrior extends Player{
                 Enemy selectedEnemy = possibleEnemies.get(enemyIndex);
                 int attackPoints = getHealth().getCapacity()/WARRIOR_ABILITY_DAMAGE_PERCENTAGE;
                 int defensePoints = selectedEnemy.defense();
-                messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), selectedEnemy.getName(), attackPoints - defensePoints));
-                selectedEnemy.health.ReduceAmount(attackPoints-defensePoints);
+                int actualAttack = Math.max(0, attackPoints - defensePoints);
+                messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), selectedEnemy.getName(), actualAttack));
+                selectedEnemy.health.ReduceAmount(actualAttack);
                 if(!selectedEnemy.alive()){
-                    enemies.remove(selectedEnemy);
                     selectedEnemy.deathCallBack.Call();
                     addExperience(selectedEnemy.getExperienceValue());
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
@@ -54,22 +50,9 @@ public class Warrior extends Player{
         }
         else{
             onGameTick();
-            messageCallBack.send(String.format("%s tried to cast %s, but there is a cooldown: %d", getName(), getSpecialAbilityName(), getRemainingCoolDown()));
+            messageCallBack.send(String.format("%s tried to cast %s, but there is a cooldown: %d", getName(), specialAbilityName, getRemainingCoolDown()));
         }
     }
-
-//    @Override
-//    public void levelUp(){
-//        super.levelUp();
-//        remainingCoolDown = 0;
-//        int healthGained = gainHealth();
-//        int attackGained = gainAttack();
-//        int defenseGained = gainDefense();
-//        health.AddCapacity(healthGained);
-//        attack+=attackGained;
-//        defense+=defenseGained;
-//        messageCallBack.send(String.format("%s reached level %d: +%d Health, +%d Attack, +%d Defense",getName(),getLevel(),healthGained,attackGained,defenseGained));
-//    }
 
 
     @Override
@@ -106,7 +89,8 @@ public class Warrior extends Player{
 
     @Override
     public String describe(){
-        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d/%d\t\tCooldown: %d/%d", getName(), getHealth(), getAttack(), getDefense(), getLevel(), getExperience(),getLevel()*REQ_EXP, getRemainingCoolDown(), getAbilityCoolDown());
+        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d/%d\t\tCooldown: %d/%d", getName(), getHealth(), getAttack(),
+                getDefense(), getLevel(), getExperience(),getLevel()*REQ_EXP, getRemainingCoolDown(), getAbilityCoolDown());
     }
 
 
