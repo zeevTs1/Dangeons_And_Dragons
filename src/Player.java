@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class Player extends Unit {
+public abstract class Player extends Unit implements HeroicUnit{
     public static final char playerTile = '@';
     protected static final int REQ_EXP=50;
     protected static final int ATTACK_BONUS=4;
@@ -33,8 +33,6 @@ public abstract class Player extends Unit {
     {
         this.inputProvider = inputProvider;
     }
-
-    public abstract void castSpecialAbility(List<Enemy> enemies);
 
     public abstract void onGameTick();
 
@@ -84,7 +82,7 @@ public abstract class Player extends Unit {
         Position newPosition = position;
 
         if (action == 'e')
-            castSpecialAbility(enemies);
+            castAbility(enemies);
         else {
             if (action == 'd')
                 newPosition = newPosition.add(1, 0);

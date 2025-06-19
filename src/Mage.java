@@ -51,7 +51,7 @@ public class Mage extends Player {
     }
 
     @Override
-    public void castSpecialAbility(List<Enemy> enemies){
+    public void castAbility(List<Enemy> enemies){
         if(manaCost<=this.mana.getAmount()) {
             messageCallBack.send(String.format("%s cast %s.", getName(), specialAbilityName));
             this.mana.ReduceAmount(manaCost);
