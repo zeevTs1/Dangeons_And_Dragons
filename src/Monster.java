@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 
 public class Monster extends Enemy{
@@ -9,13 +10,13 @@ public class Monster extends Enemy{
     private int visionRange;
 
     public Monster(char tile, String name, int healthCapacity, int attack, int defense, int experienceValue, int visionRange){
-        super(tile, new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
+        super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
         this.visionRange=visionRange;
     }
 
-    public Position performAction(Player player){
+    public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
-        if(getPosition().range(player.getPosition())<visionRange){
+        if(getPosition().range(player.getPosition())<=visionRange){
             int dx = getPosition().getX()-player.getPosition().getX();
             int dy = getPosition().getY()-player.getPosition().getY();
             if(Math.abs(dx)>Math.abs(dy)){

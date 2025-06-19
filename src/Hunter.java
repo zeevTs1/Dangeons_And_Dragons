@@ -9,6 +9,7 @@ public class Hunter extends Player{
     private static final int HUNTER_ATTACK_BONUS=2;
     private static final int HUNTER_DEFENSE_BONUS=1;
     private static final int ARROWS_BONUS = 10;
+    private static final int ARROW_ADDITION_TICKS = 10;
 
     public Hunter(String name, int healthCapacity, int attack, int defense, int range) {
         super(null, name, new Resource(healthCapacity,healthCapacity), attack, defense);
@@ -26,11 +27,11 @@ public class Hunter extends Player{
 
     @Override
     public void onGameTick() {
-        if(ticksCount ==10 ){
+        if(ticksCount == ARROW_ADDITION_TICKS ){
             arrowsCount = arrowsCount + level;
             ticksCount = 0;
         }else{
-            ticksCount = ticksCount +1;
+            ticksCount = ticksCount + 1;
         }
 
     }
@@ -42,19 +43,20 @@ public class Hunter extends Player{
 
     @Override
     public void castAbility(List<Enemy> enemies,Player player) {
-        if(arrowsCount !=0){
-            arrowsCount = arrowsCount -1;
-            messageCallBack.send(String.format("%s cast %s.", getName(), specialAbilityName));
+        if(arrowsCount != 0){
             Enemy closestEnemy = null;
             for(Enemy enemy : enemies){
                 double distanceEnemy =  getPosition().range(enemy.getPosition());
-                if(getPosition().range(enemy.getPosition()) < range) {
-                    if(closestEnemy == null || getPosition().range(closestEnemy.getPosition())< distanceEnemy) {
+                if(distanceEnemy < range) {
+                    if(closestEnemy == null || getPosition().range(closestEnemy.getPosition()) > distanceEnemy) {
                         closestEnemy = enemy;
                     }
                 }
             }
+
             if(closestEnemy!=null){
+                arrowsCount = arrowsCount - 1;
+                messageCallBack.send(String.format("%s fired an arrow at %s.", getName(), specialAbilityName));
                 int defensePoints = closestEnemy.defense();
                 int actualAttack = Math.max(0, attack - defensePoints);
                 messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), closestEnemy.getName(), actualAttack));
@@ -66,14 +68,19 @@ public class Hunter extends Player{
                 }
 
             }else{
-                messageCallBack.send(String.format("%s tried to cast %s, but there are no enemies in range", getName(), specialAbilityName));
+                messageCallBack.send(String.format("%s tried to shoot an arrow but there were no enemies in range.", getName()));
             }
 
         }else{
             onGameTick();
-            messageCallBack.send(String.format("%s tried to cast %s, but there are no arrows", getName(), specialAbilityName));
+            messageCallBack.send(String.format("%s tried to shoot an arrow, but there was no arrows left.", getName()));
         }
-
-
     }
+
+    @Override
+    public String describe(){
+        return String.format("%s\t\tHealth: %s\t\tAttack: %d\t\tDefense: %d\t\tLevel: %d\t\tExperience: %d/%d\t\tArrows: %d\t\tRange: %d", getName(), getHealth(), getAttack(), getDefense(),
+                getLevel(), getExperience(),getLevel()*REQ_EXP, arrowsCount, range);
+    }
+
 }

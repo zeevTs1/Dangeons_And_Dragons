@@ -29,7 +29,10 @@ public class TileFactory {
 
                 // Rogues
                 () -> new Rogue("Arya Stark", 150, 40, 2, 20),
-                () -> new Rogue("Bronn", 250, 35, 3, 50)
+                () -> new Rogue("Bronn", 250, 35, 3, 50),
+
+                // Hunters
+                () -> new Hunter("Ygritte", 220, 30, 2, 6)
         );
     }
 

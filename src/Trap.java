@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Trap extends Enemy{
     private int visibilityTime;
     private int invisibilityTime;
@@ -5,7 +7,7 @@ public class Trap extends Enemy{
     private boolean visible;
 
     public Trap(char tile, String name, int healthCapacity, int attack, int defense, int experienceValue, int visibilityTime, int invisibilityTime){
-        super(tile, new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
+        super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
         this.visibilityTime=visibilityTime;
         this.invisibilityTime=invisibilityTime;
         this.ticksCount=0;
@@ -13,7 +15,7 @@ public class Trap extends Enemy{
     }
 
 
-    public Position performAction(Player player){
+    public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
         visible = ticksCount < visibilityTime;
         if(ticksCount==(visibilityTime+invisibilityTime))

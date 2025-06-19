@@ -13,14 +13,14 @@ public class Boss extends Enemy implements HeroicUnit{
 
 
     public Boss(char tile, String name, int healthCapacity, int attack, int defense, int experienceValue, int visionRange, int abilityFrequency){
-        super(tile, new Position(0,0), name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
+        super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
         this.visionRange=visionRange;
         this.abilityFrequency=abilityFrequency;
     }
 
     public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
-        if(getPosition().range(player.getPosition())<visionRange){
+        if(getPosition().range(player.getPosition())<=visionRange){
             if(combatTicks == abilityFrequency){
                 combatTicks=0;
                 castAbility(enemies, player);
@@ -60,7 +60,7 @@ public class Boss extends Enemy implements HeroicUnit{
 
     @Override
     public void castAbility(List<Enemy> enemies, Player player) {
-        if(getPosition().range(player.getPosition()) < visionRange) {
+        if(getPosition().range(player.getPosition()) <= visionRange) {
             messageCallBack.send(String.format("%s shoots %s for %d damage.", getName(), player.getName(), getAttack()));
             int defensePoints = player.defense();
             int actualAttack = Math.max(getAttack() - defensePoints, 0);
