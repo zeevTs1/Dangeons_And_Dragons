@@ -76,13 +76,12 @@ public abstract class Player extends Unit implements HeroicUnit{
     }
 
 
-
-    public Position performAction(List<Enemy> enemies) {
+    public Position performAction(List<Enemy> enemies, Player player) {
         char action = inputProvider.getInput();
         Position newPosition = position;
 
         if (action == 'e')
-            castAbility(enemies);
+            castAbility(enemies, player);
         else {
             if (action == 'd')
                 newPosition = newPosition.add(1, 0);

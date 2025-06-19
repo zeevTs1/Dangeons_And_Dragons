@@ -27,11 +27,11 @@ public class Level {
         Position enemyActionPosition;
         Tile tileForPlayer;
         Tile tileForEnemy;
-        playerActionPosition = player.performAction(Enemies);
+        playerActionPosition = player.performAction(Enemies, player);
         tileForPlayer = board.get(playerActionPosition);
         player.interact(tileForPlayer);
         for(Enemy e : Enemies){
-            enemyActionPosition = e.performAction(player);
+            enemyActionPosition = e.performAction(Enemies, player);
             tileForEnemy = board.get(enemyActionPosition);
             e.interact(tileForEnemy);
         }

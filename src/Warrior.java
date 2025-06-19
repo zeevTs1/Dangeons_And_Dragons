@@ -22,7 +22,7 @@ public class Warrior extends Player{
 
 
     @Override
-    public void castAbility(List<Enemy> enemies) {
+    public void castAbility(List<Enemy> enemies, Player player) {
         if(remainingCoolDown == 0){
             int healthBonus = gainAbilityHealth();
             messageCallBack.send(String.format("%s used %s, healing for: %d.", getName(), specialAbilityName, healthBonus));

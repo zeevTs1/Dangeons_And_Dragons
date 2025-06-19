@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 
 public abstract class Unit extends Tile implements Visitor {
@@ -30,6 +31,8 @@ public abstract class Unit extends Tile implements Visitor {
             messageCallBack.send(String.format("%s dealt %d damage to %s",getName(), attackPoints - defensePoints, defender.getName()));
         }
     }
+
+    public abstract Position performAction(List<Enemy> enemies, Player player);
 
     public void interact(Tile tile){
         tile.accept(this);

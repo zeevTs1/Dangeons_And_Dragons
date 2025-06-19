@@ -1,3 +1,5 @@
+import java.util.List;
+
 public abstract class Enemy extends Unit{
     protected int experienceValue;
 
@@ -6,7 +8,7 @@ public abstract class Enemy extends Unit{
         this.experienceValue=experienceValue;
     }
 
-    public abstract Position performAction(Player player);
+    public abstract Position performAction(List<Enemy> enemy, Player player);
 
     public void visit(Empty emptyTile){
         swapPosition(emptyTile);

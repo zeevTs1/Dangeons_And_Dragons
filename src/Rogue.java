@@ -40,7 +40,7 @@ public class Rogue extends Player {
     }
 
     @Override
-    public void castAbility(List<Enemy> enemies) {
+    public void castAbility(List<Enemy> enemies, Player player) {
         if(currentEnergy>=cost){
             currentEnergy = currentEnergy - cost;
             messageCallBack.send(String.format("%s cast %s.", getName(), specialAbilityName));
