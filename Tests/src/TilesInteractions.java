@@ -11,15 +11,15 @@ import java.util.List;
 
 public class TilesInteractions {
 
-    public TileFactory tileFactory;
-    public Player playerTested;
-    public Enemy monsterTested;
-    public Empty emptyTested;
-    public Wall wallTested;
-    public Position playersPosition;
-    public Position enemiesPosition;
-    public Position simpleTilesPosition;
-    List<Enemy> Enemies;
+    private TileFactory tileFactory;
+    private Player playerTested;
+    private Enemy monsterTested;
+    private Empty emptyTested;
+    private Wall wallTested;
+    private Position playersPosition;
+    private Position enemiesPosition;
+    private Position simpleTilesPosition;
+    private List<Enemy> Enemies;
 
     @BeforeEach
     public void TestInitializer() {
@@ -29,6 +29,7 @@ public class TilesInteractions {
         simpleTilesPosition = new Position(0,1);
         playerTested = tileFactory.producePlayer(1,playersPosition);
         monsterTested = new Monster('t', "Skeloton", 80, 1, 0, 5, 3);
+        monsterTested.setPosition(enemiesPosition);
         emptyTested = tileFactory.produceEmpty(simpleTilesPosition);
         wallTested = tileFactory.produceWall(simpleTilesPosition);
         Enemies = new ArrayList<>();
