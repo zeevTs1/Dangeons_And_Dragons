@@ -1,6 +1,9 @@
+package Tiles;
+
+import Game.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Rogue extends Player {
     private int cost;

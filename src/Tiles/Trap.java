@@ -1,3 +1,7 @@
+package Tiles;
+
+import Game.Resource;
+import Game.Position;
 import java.util.List;
 
 public class Trap extends Enemy{

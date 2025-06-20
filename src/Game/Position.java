@@ -1,3 +1,5 @@
+package Game;
+
 public class Position implements Comparable<Position> {
     private int x;
     private int y;
@@ -53,7 +55,7 @@ public class Position implements Comparable<Position> {
 
     @Override
     public String toString() {
-        return "Position{" +
+        return "Game.Position{" +
                 "x=" + x +
                 ", y=" + y +
                 '}';

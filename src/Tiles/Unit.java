@@ -1,3 +1,11 @@
+package Tiles;
+
+import Callbacks.DeathCallBack;
+import Callbacks.MessageCallBack;
+import Game.Resource;
+import Game.Position;
+import VisitorPattern.Visitor;
+
 import java.util.List;
 import java.util.Random;
 
@@ -75,14 +83,14 @@ public abstract class Unit extends Tile implements Visitor {
         return attack;
     }
 
-    protected boolean alive(){
+    public boolean alive(){
         return health.getAmount()>0;
     }
 
-    protected void setDeathCallBack(DeathCallBack deathCallBack){
+    public void setDeathCallBack(DeathCallBack deathCallBack){
         this.deathCallBack = deathCallBack;
     }
-    protected void setMessageCallBack(MessageCallBack messageCallBack){
+    public void setMessageCallBack(MessageCallBack messageCallBack){
         this.messageCallBack = messageCallBack;
     }
 

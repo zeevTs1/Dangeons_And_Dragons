@@ -1,3 +1,7 @@
+package Tiles;
+
+import Game.Resource;
+
 import java.util.List;
 
 public class Hunter extends Player{

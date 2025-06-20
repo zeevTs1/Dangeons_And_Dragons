@@ -1,3 +1,9 @@
+package Game;
+
+import Tiles.Enemy;
+import Tiles.Player;
+import Tiles.Tile;
+
 import java.util.List;
 
 public class Level {

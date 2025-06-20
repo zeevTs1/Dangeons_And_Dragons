@@ -1,4 +1,9 @@
-import javax.imageio.IIOException;
+package Game;
+
+import Callbacks.MessageCallBack;
+import Tiles.Enemy;
+import Tiles.Player;
+import Tiles.Tile;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import CLI.CLI;
 
 public class FileParser {
     public static final char EMPTY='.';
@@ -54,9 +60,9 @@ public class FileParser {
                 else if(c==WALL){
                     tile = tileFactory.produceWall(tilePosition);
                 }
-                else if(c==PLAYER){
+                else if(c==PLAYER && player==null){
                     startingPosition=tilePosition;
-                    player = tileFactory.producePLayer(playerIndex, tilePosition);
+                    player = tileFactory.producePlayer(playerIndex, tilePosition);
                     player.setMessageCallBack(CLI::Display);
                     player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
                     player.setDeathCallBack(() -> player.toString());

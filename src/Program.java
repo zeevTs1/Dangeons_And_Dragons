@@ -1,3 +1,5 @@
+import Game.GameRunner;
+
 public class Program {
     public static void main(String[] args){
 //        if(args.length<1){

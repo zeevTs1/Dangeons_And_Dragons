@@ -1,3 +1,7 @@
+package Tiles;
+
+import Game.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -82,7 +86,7 @@ public class Mage extends Player {
         }
         else{
             onGameTick();
-            messageCallBack.send(String.format("%s tried to cast %s, but there was not enough mana: %d/%d",getName(),specialAbilityName,getMana().amount,getManaCost()));
+            messageCallBack.send(String.format("%s tried to cast %s, but there was not enough mana: %d/%d",getName(),specialAbilityName, getMana().getAmount(),getManaCost()));
         }
 
     }

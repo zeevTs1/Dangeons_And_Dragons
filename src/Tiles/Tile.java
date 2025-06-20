@@ -1,3 +1,7 @@
+package Tiles;
+import Game.Position;
+import VisitorPattern.Visited;
+
 public abstract class Tile implements Visited, Comparable<Tile> {
     protected char tile;
     protected Position position;

@@ -1,7 +1,12 @@
+package Tiles;
+
+import Game.Position;
+import Game.Resource;
+
 import java.util.List;
 import java.util.Random;
 
-public class Boss extends Enemy implements HeroicUnit{
+public class Boss extends Enemy implements HeroicUnit {
     private final int MOVE_UP=0;
     private final int MOVE_DOWN=1;
     private final int MOVE_LEFT=2;

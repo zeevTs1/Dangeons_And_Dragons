@@ -1,3 +1,5 @@
+package Game;
+
 public class Resource {
     protected int amount;
     protected int capacity;

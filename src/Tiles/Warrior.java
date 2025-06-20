@@ -1,3 +1,7 @@
+package Tiles;
+
+import Game.Resource;
+import Game.Position;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,3 +1,7 @@
+package Tiles;
+import Game.Position;
+import VisitorPattern.Visitor;
+
 public class Wall extends Tile{
 
     @Override

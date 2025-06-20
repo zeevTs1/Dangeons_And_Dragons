@@ -1,6 +1,13 @@
+package Tiles;
+
+import Callbacks.InputQuery;
+import Game.Resource;
+import Game.Position;
+import VisitorPattern.Visitor;
+
 import java.util.List;
 
-public abstract class Player extends Unit implements HeroicUnit{
+public abstract class Player extends Unit implements HeroicUnit {
     public static final char playerTile = '@';
     protected static final int REQ_EXP=50;
     protected static final int ATTACK_BONUS=4;

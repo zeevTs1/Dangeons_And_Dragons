@@ -1,3 +1,9 @@
+package Game;
+
+import Tiles.Empty;
+import Tiles.Enemy;
+import Tiles.Tile;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

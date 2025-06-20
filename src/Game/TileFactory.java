@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package Game;
+
+import Tiles.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +51,9 @@ public class TileFactory {
         () ->new Boss('M', "The Mountain", 1000, 60, 25, 500, 6, 5),
         () ->new Boss('C', "Queen Cersei",  100, 10, 10, 1000, 1, 8),
         () ->new Boss('K', "Night's King",  5000, 300, 150, 5000, 8, 3),
-        () ->new Trap('Q',"Queen's Trap",250,50,10,100,3,7),
-        () ->new Trap('D',"Death Trap",500,100,20,250,1,10),
-        () ->new Trap('B',"Bonus Trap",1,1,1,250,1,5)
+        () ->new Trap('Q',"Queen's Tiles.Trap",250,50,10,100,3,7),
+        () ->new Trap('D',"Death Tiles.Trap",500,100,20,250,1,10),
+        () ->new Trap('B',"Bonus Tiles.Trap",1,1,1,250,1,5)
         );
 
         return enemies.stream().collect(Collectors.toMap(s -> s.get().getTile(), Function.identity()));
@@ -71,11 +74,9 @@ public class TileFactory {
         }
 
     }
-    public Player producePLayer(int idx,Position position){
-        if(selected == null){
-            selected = playerList.get(idx).get();
-            selected.setPosition(position);
-        }
+    public Player producePlayer(int idx, Position position){
+        selected = playerList.get(idx).get();
+        selected.setPosition(position);
         return selected;
     }
     public Wall produceWall(Position position){

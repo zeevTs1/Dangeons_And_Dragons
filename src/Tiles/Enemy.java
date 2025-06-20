@@ -1,3 +1,9 @@
+package Tiles;
+
+import Game.Position;
+import Game.Resource;
+import VisitorPattern.Visitor;
+
 import java.util.List;
 
 public abstract class Enemy extends Unit{
