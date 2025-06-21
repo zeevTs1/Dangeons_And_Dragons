@@ -7,7 +7,7 @@ public class Program {
 //            System.exit(-1);
 //        }
         GameRunner gameRunner =new GameRunner();
-        gameRunner.initialize("C:\\SE Dagree\\semester B\\OOP Principles\\Hw3\\levels_dir");
+        gameRunner.initialize("C:\\Users\\zeevk\\oop\\levels_dir");
         gameRunner.start();
     }
 }

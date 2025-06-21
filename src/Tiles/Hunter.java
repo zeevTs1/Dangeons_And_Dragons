@@ -40,6 +40,18 @@ public class Hunter extends Player{
 
     }
 
+    public int getRange() {
+        return range;
+    }
+
+    public int getArrowsCount() {
+        return arrowsCount;
+    }
+
+    public int getTicksCount() {
+        return ticksCount;
+    }
+
     @Override
     public void gainSpecialAbility() {
         arrowsCount = arrowsCount + ARROWS_BONUS*level;
