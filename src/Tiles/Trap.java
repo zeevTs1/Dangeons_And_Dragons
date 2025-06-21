@@ -18,6 +18,21 @@ public class Trap extends Enemy{
         this.visible=true;
     }
 
+    public int getVisibilityTime() {
+        return visibilityTime;
+    }
+
+    public int getInvisibilityTime() {
+        return invisibilityTime;
+    }
+
+    public int getTicksCount() {
+        return ticksCount;
+    }
+
+    public boolean getVisible(){
+        return visible;
+    }
 
     public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
