@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class TileFactory {
     private List<Supplier<Player>> playerList;
-    Map<Character, Supplier<Enemy>> enemiesMap;
+    private Map<Character, Supplier<Enemy>> enemiesMap;
     private Player selected;
 
     public TileFactory() {

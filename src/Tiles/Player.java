@@ -49,7 +49,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     public abstract void gainSpecialAbility();
 
     protected void addExperience(int experienceGained) {
-        this.experience += experienceGained;
+           this.experience += experienceGained;
         int nextLevelReq = levelUpRequirement();
 
         while (experience >= nextLevelReq) {
