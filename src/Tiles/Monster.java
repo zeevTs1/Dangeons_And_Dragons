@@ -21,11 +21,11 @@ public class Monster extends Enemy{
 
     public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
-        if(getPosition().range(player.getPosition())<=visionRange){
+        if(getPosition().range(player.getPosition()) < visionRange){
             int dx = getPosition().getX()-player.getPosition().getX();
             int dy = getPosition().getY()-player.getPosition().getY();
             if(Math.abs(dx)>Math.abs(dy)){
-                if(dx>0)
+                if(dx > 0)
                     newPosition = getPosition().add(-1,0);
                 else
                     newPosition = getPosition().add(1,0);

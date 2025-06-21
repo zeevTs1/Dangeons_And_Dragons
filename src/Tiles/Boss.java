@@ -25,7 +25,7 @@ public class Boss extends Enemy implements HeroicUnit {
 
     public Position performAction(List<Enemy> enemies, Player player){
         Position newPosition = getPosition();
-        if(getPosition().range(player.getPosition())<=visionRange){
+        if(getPosition().range(player.getPosition()) < visionRange){
             if(combatTicks == abilityFrequency){
                 combatTicks=0;
                 castAbility(enemies, player);

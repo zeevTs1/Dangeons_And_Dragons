@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TilesInteractions {
+public class TilesInteractionsTest {
 
     private TileFactory tileFactory;
     private Player playerTested;
@@ -28,7 +28,7 @@ public class TilesInteractions {
         enemiesPosition = new Position(1,0);
         simpleTilesPosition = new Position(0,1);
         playerTested = tileFactory.producePlayer(1,playersPosition);
-        monsterTested = new Monster('t', "Skeloton", 80, 1, 0, 5, 3);
+        monsterTested = new Monster('t', "Skeleton", 80, 1, 0, 5, 3);
         monsterTested.setPosition(enemiesPosition);
         emptyTested = tileFactory.produceEmpty(simpleTilesPosition);
         wallTested = tileFactory.produceWall(simpleTilesPosition);
