@@ -1,8 +1,8 @@
 package Tiles;
 
 import Callbacks.MessageCallBack;
-import Game.Utils.Resource;
-import Game.Utils.Position;
+import Utils.Resource;
+import Utils.Position;
 import VisitorPattern.Visitor;
 
 import java.util.Random;

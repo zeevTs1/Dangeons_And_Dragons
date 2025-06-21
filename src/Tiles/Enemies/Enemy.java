@@ -2,8 +2,8 @@ package Tiles.Enemies;
 
 import Callbacks.EnemyDeathCallBack;
 import Callbacks.GetPlayerCallBack;
-import Game.Utils.Position;
-import Game.Utils.Resource;
+import Utils.Position;
+import Utils.Resource;
 import Tiles.Empty;
 import Tiles.Players.Player;
 import Tiles.Unit;

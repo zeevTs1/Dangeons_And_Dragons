@@ -1,7 +1,7 @@
 package Tiles.Enemies;
 
-import Game.Utils.Resource;
-import Game.Utils.Position;
+import Utils.Resource;
+import Utils.Position;
 import Tiles.Players.Player;
 
 public class Trap extends Enemy {

@@ -1,7 +1,7 @@
 package Tiles.Enemies;
 
-import Game.Utils.Position;
-import Game.Utils.Resource;
+import Utils.Position;
+import Utils.Resource;
 import Tiles.Players.Player;
 
 import java.util.Random;

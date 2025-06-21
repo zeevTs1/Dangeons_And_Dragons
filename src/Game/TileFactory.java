@@ -1,6 +1,6 @@
 package Game;
 
-import Game.Utils.Position;
+import Utils.Position;
 import Tiles.*;
 import Tiles.Enemies.Boss;
 import Tiles.Enemies.Enemy;

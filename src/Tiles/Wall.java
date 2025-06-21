@@ -1,5 +1,5 @@
 package Tiles;
-import Game.Utils.Position;
+import Utils.Position;
 import VisitorPattern.Visitor;
 
 public class Wall extends Tile{

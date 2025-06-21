@@ -1,6 +1,6 @@
 package Tiles.Players;
 
-import Game.Utils.Resource;
+import Utils.Resource;
 import Tiles.Enemies.Enemy;
 
 import java.util.ArrayList;

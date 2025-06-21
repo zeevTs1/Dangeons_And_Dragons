@@ -1,6 +1,6 @@
 package CLI;
 
-import Game.Utils.Action;
+import Utils.Action;
 
 public interface InputQuery {
     Action getInput();

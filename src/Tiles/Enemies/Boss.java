@@ -1,6 +1,6 @@
 package Tiles.Enemies;
 
-import Game.Utils.Position;
+import Utils.Position;
 import Tiles.HeroicUnit;
 import Tiles.Players.Player;
 
