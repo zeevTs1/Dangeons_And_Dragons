@@ -5,6 +5,7 @@ import Tiles.Enemy;
 
 import Tiles.Trap;
 import Tiles.Warrior;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TrapTest {
     private List<Enemy> enemies;
@@ -43,9 +45,15 @@ public class TrapTest {
         }
         trap.performAction(enemies,warrior);
         assertEquals(0,trap.getTicksCount());
-
     }
 
+    @Test
+    public void testNoMovement() {
+        for(int i=0 ; i<30; i++){
+            assertEquals(position1,trap.getPosition());
+        }
+
+    }
 
 
 
