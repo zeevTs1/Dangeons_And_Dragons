@@ -1,10 +1,10 @@
-package Tiles;
+package Tiles.Enemies;
 
-import Game.Resource;
-import Game.Position;
-import java.util.List;
+import Game.Utils.Resource;
+import Game.Utils.Position;
+import Tiles.Players.Player;
 
-public class Trap extends Enemy{
+public class Trap extends Enemy {
     private int visibilityTime;
     private int invisibilityTime;
     private int ticksCount;
@@ -18,13 +18,6 @@ public class Trap extends Enemy{
         this.visible=true;
     }
 
-    public int getVisibilityTime() {
-        return visibilityTime;
-    }
-
-    public int getInvisibilityTime() {
-        return invisibilityTime;
-    }
 
     public int getTicksCount() {
         return ticksCount;

@@ -1,7 +1,8 @@
 package Game;
 
-import Tiles.Enemy;
-import Tiles.Player;
+import Game.Utils.Position;
+import Tiles.Enemies.Enemy;
+import Tiles.Players.Player;
 import Tiles.Tile;
 
 import java.util.List;

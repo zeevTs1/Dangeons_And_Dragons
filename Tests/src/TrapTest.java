@@ -1,12 +1,9 @@
-import CLI.CLI;
-import Game.Position;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
+import Tiles.Enemies.Enemy;
 
-import Tiles.Player;
-import Tiles.Trap;
-import Tiles.Warrior;
-import org.junit.Assert;
+import Tiles.Players.Player;
+import Tiles.Enemies.Trap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

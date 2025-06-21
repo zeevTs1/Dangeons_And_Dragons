@@ -1,6 +1,12 @@
 package Game;
 
+import Game.Utils.Position;
 import Tiles.*;
+import Tiles.Enemies.Boss;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Enemies.Trap;
+import Tiles.Players.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +68,7 @@ public class TileFactory {
     public List<Player> listPlayers(){
         return playerList.stream().map(Supplier::get).collect(Collectors.toList());
     }
-    public Enemy produceEnemy(char tile,Position position){
+    public Enemy produceEnemy(char tile, Position position){
         if(enemiesMap.containsKey(tile)){
             Enemy enemy = enemiesMap.get(tile).get();
             enemy.setPosition(position);

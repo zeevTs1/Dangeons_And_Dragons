@@ -1,25 +1,19 @@
-package Tiles;
+package Tiles.Enemies;
 
-import Game.Position;
-import Game.Resource;
+import Game.Utils.Position;
+import Tiles.HeroicUnit;
+import Tiles.Players.Player;
 
-import java.util.List;
 import java.util.Random;
 
-public class Boss extends Enemy implements HeroicUnit {
-    private final int MOVE_UP=0;
-    private final int MOVE_DOWN=1;
-    private final int MOVE_LEFT=2;
-    private final int MOVE_RIGHT=3;
+public class Boss extends Monster implements HeroicUnit {
 
-    private int visionRange;
     private int abilityFrequency;
     private int combatTicks;
 
 
     public Boss(char tile, String name, int healthCapacity, int attack, int defense, int experienceValue, int visionRange, int abilityFrequency){
-        super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
-        this.visionRange=visionRange;
+        super(tile, name, healthCapacity, attack, defense, experienceValue, visionRange);
         this.abilityFrequency=abilityFrequency;
         this.combatTicks=0;
     }

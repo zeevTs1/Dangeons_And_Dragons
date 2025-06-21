@@ -1,6 +1,6 @@
 package Callbacks;
 
-import Tiles.Enemy;
+import Tiles.Enemies.Enemy;
 
 import java.util.List;
 

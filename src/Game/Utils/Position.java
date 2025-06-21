@@ -1,4 +1,4 @@
-package Game;
+package Game.Utils;
 
 public class Position implements Comparable<Position> {
     private int x;

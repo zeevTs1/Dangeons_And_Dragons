@@ -1,7 +1,10 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
 import Tiles.*;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Players.Player;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,8 +38,8 @@ public class TilesInteractionsTest {
         Enemies = new ArrayList<>();
         Enemies.add(monsterTested);
 
-        playerTested.setMessageCallBack(CLI::Display);
-        monsterTested.setMessageCallBack(CLI::Display);
+        playerTested.setMessageCallBack(UserInterface::Display);
+        monsterTested.setMessageCallBack(UserInterface::Display);
     }
 
     @Test

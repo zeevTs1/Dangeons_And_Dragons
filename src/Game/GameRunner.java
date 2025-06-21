@@ -1,6 +1,7 @@
 package Game;
 
-import Tiles.Player;
+import CLI.UserInterface;
+import Tiles.Players.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +14,6 @@ import java.util.stream.Collectors;
 public class GameRunner {
     private Scanner scanner;
     private TileFactory tileFactory;
-
     private List<Level> levels;
 
     public GameRunner(){
@@ -24,7 +24,7 @@ public class GameRunner {
     public void initialize(String levelDirectory) {
         int indexReceived = choosePlayer();
 
-        FileParser parser = new FileParser(tileFactory, this::sendMessage, indexReceived);
+        FileParser parser = new FileParser(tileFactory, indexReceived);
         File root = new File(levelDirectory);
         levels = Arrays.stream(Objects.requireNonNull(root.listFiles()))
                 .map(file -> {
@@ -42,10 +42,10 @@ public class GameRunner {
             currentLevel.initializePlayer();
             while (!currentLevel.won())
             {
-                System.out.println(currentLevel);
+                UserInterface.Display(currentLevel.toString());
                 if(!currentLevel.processTick()){
-                    System.out.println(currentLevel);
-                    System.out.println("Game Over.");
+                    UserInterface.Display(currentLevel.toString());
+                    UserInterface.Display("Game Over.");
                     return;
                 }
             }
@@ -55,35 +55,31 @@ public class GameRunner {
 
     private int choosePlayer(){
         while (true) {
-            sendMessage("Select player:");
+            UserInterface.Display("Select player:");
             List<Player> playersList = tileFactory.listPlayers();
 
             for (int i = 0; i < playersList.size(); i++) {
-                sendMessage(String.format("%d. %s", i + 1, playersList.get(i).describe()));
+                UserInterface.Display(String.format("%d. %s", i + 1, playersList.get(i).describe()));
             }
 
             try {
                 int selected = Integer.parseInt(scanner.next()) - 1;
 
                 if (0 <= selected && selected < playersList.size()) {
-                    sendMessage(String.format(
+                    UserInterface.Display(String.format(
                             "You have selected:\n%s",
                             playersList.get(selected).getName()
                     ));
                     return selected;
                 }
                 else{
-                    System.out.println("No such player");
+                    UserInterface.Display("No such player");
                 }
 
             } catch (NumberFormatException e) {
-                System.out.println("Not a number");
+                UserInterface.Display("Not a number");
             }
         }
-    }
-
-    public void sendMessage(String message){
-        System.out.println(message);
     }
 
 }

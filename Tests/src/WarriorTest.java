@@ -1,16 +1,14 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
-import Tiles.Monster;
-import Tiles.Tile;
-import Tiles.Warrior;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Players.Warrior;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -31,11 +29,11 @@ public class WarriorTest {
         position2 = new Position(2,2);
         warrior = (Warrior) tileFactory.producePlayer(0, position1);
         monster = (Monster) tileFactory.produceEnemy('s', position2);
-        warrior.setMessageCallBack(CLI::Display);
+        warrior.setMessageCallBack(UserInterface::Display);
         warrior.setEnemiesInRangeCallBack((range) -> enemies.stream()
                 .filter(e -> warrior.getPosition().range(e.getPosition()) < range)
                 .collect(Collectors.toList()));
-        monster.setMessageCallBack(CLI::Display);
+        monster.setMessageCallBack(UserInterface::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
     }

@@ -1,10 +1,9 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
-import Tiles.Mage;
-import Tiles.Monster;
-import Tiles.Warrior;
+import Tiles.Enemies.Enemy;
+import Tiles.Players.Mage;
+import Tiles.Enemies.Monster;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,11 +32,11 @@ public class MageTest {
         mage = (Mage) tileFactory.producePlayer(2, position1);
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         farAwayMonster = (Monster) tileFactory.produceEnemy('s', position3);
-        mage.setMessageCallBack(CLI::Display);
+        mage.setMessageCallBack(UserInterface::Display);
         mage.setEnemiesInRangeCallBack((range) -> enemies.stream()
                 .filter(e -> mage.getPosition().range(e.getPosition()) < range)
                 .collect(Collectors.toList()));
-        monster.setMessageCallBack(CLI::Display);
+        monster.setMessageCallBack(UserInterface::Display);
         enemies = new ArrayList<>();
         enemies.add(monster);
         enemies.add(farAwayMonster);

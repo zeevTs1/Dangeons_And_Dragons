@@ -1,8 +1,8 @@
 package Game;
 
-import Callbacks.MessageCallBack;
-import Tiles.Enemy;
-import Tiles.Player;
+import Game.Utils.Position;
+import Tiles.Enemies.Enemy;
+import Tiles.Players.Player;
 import Tiles.Tile;
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,8 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import CLI.CLI;
+
+import CLI.UserInterface;
 
 public class FileParser {
     public static final char EMPTY='.';
@@ -21,15 +21,13 @@ public class FileParser {
 
 
     private TileFactory tileFactory;
-    private MessageCallBack messageCallback;
     private int playerIndex;
     private Player player;
     private List<Enemy> enemies = new ArrayList<>();
     private Position startingPosition;
 
-    public FileParser(TileFactory factory, MessageCallBack messageCallback, int index) {
+    public FileParser(TileFactory factory, int index) {
         this.tileFactory = factory;
-        this.messageCallback = messageCallback;
         this.playerIndex = index;
     }
 
@@ -64,8 +62,8 @@ public class FileParser {
                     if(player==null) {
                         startingPosition = tilePosition;
                         player = tileFactory.producePlayer(playerIndex, tilePosition);
-                        player.setMessageCallBack(CLI::Display);
-                        player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
+                        player.setMessageCallBack(UserInterface::Display);
+                        player.setInputQuery(UserInterface::getAction);
                         tile = player;
                     }
                     else{
@@ -74,7 +72,7 @@ public class FileParser {
                 }
                 else{
                     Enemy e = tileFactory.produceEnemy(c, tilePosition);
-                    e.setMessageCallBack(CLI::Display);
+                    e.setMessageCallBack(UserInterface::Display);
                     enemies.add(e);
                     tile = e;
                 }

@@ -1,6 +1,7 @@
-package Tiles;
+package Tiles.Players;
 
-import Game.Resource;
+import Game.Utils.Resource;
+import Tiles.Enemies.Enemy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class Rogue extends Player {
                 }
             }
             for(Enemy deadEnemy : deadEnemies){
-                deadEnemy.deathCallBack.Call();
+                deadEnemy.onDeath();
             }
         }
         else{

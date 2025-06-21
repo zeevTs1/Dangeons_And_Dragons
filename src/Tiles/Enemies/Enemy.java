@@ -1,15 +1,16 @@
-package Tiles;
+package Tiles.Enemies;
 
 import Callbacks.EnemyDeathCallBack;
 import Callbacks.GetPlayerCallBack;
-import Callbacks.MessageCallBack;
-import Game.Position;
-import Game.Resource;
+import Game.Utils.Position;
+import Game.Utils.Resource;
+import Tiles.Empty;
+import Tiles.Players.Player;
+import Tiles.Unit;
+import Tiles.Wall;
 import VisitorPattern.Visitor;
 
-import java.util.List;
-
-public abstract class Enemy extends Unit{
+public abstract class Enemy extends Unit {
     protected int experienceValue;
     protected GetPlayerCallBack playerCallBack;
     protected EnemyDeathCallBack deathCallBack;
@@ -22,6 +23,7 @@ public abstract class Enemy extends Unit{
     }
 
 
+    /// Visitor Pattern
     public void visit(Empty emptyTile){
         swapPosition(emptyTile);
     }
@@ -40,6 +42,8 @@ public abstract class Enemy extends Unit{
         v.visit(this);
     }
 
+
+
     public int getExperienceValue() {
         return experienceValue;
     }
@@ -50,7 +54,8 @@ public abstract class Enemy extends Unit{
     public void setDeathCallBack(EnemyDeathCallBack deathCallBack){
         this.deathCallBack = deathCallBack;
     }
-    public void setExperienceValue(int experienceValue) {
-        this.experienceValue = experienceValue;
+
+    public void onDeath(){
+        deathCallBack.Call();
     }
 }

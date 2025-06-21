@@ -1,13 +1,16 @@
-package Tiles;
+package Tiles.Players;
 
 import Callbacks.EnemiesInRangeCallBack;
-import Callbacks.GetPlayerCallBack;
-import Callbacks.InputQuery;
-import Game.Resource;
-import Game.Position;
+import CLI.InputQuery;
+import Game.Utils.Action;
+import Game.Utils.Resource;
+import Game.Utils.Position;
+import Tiles.Empty;
+import Tiles.Enemies.Enemy;
+import Tiles.HeroicUnit;
+import Tiles.Unit;
+import Tiles.Wall;
 import VisitorPattern.Visitor;
-
-import java.util.List;
 
 public abstract class Player extends Unit implements HeroicUnit {
     public static final char playerTile = '@';
@@ -44,9 +47,13 @@ public abstract class Player extends Unit implements HeroicUnit {
         this.inputProvider = inputProvider;
     }
 
+
+    /// Abstract
     public abstract void onGameTick();
 
     public abstract void gainSpecialAbility();
+
+
 
     protected void addExperience(int experienceGained) {
            this.experience += experienceGained;
@@ -87,43 +94,45 @@ public abstract class Player extends Unit implements HeroicUnit {
 
 
     public Position performAction() {
-        char action = inputProvider.getInput();
+        Action action = inputProvider.getInput();
         Position newPosition = position;
 
-        if (action == 'e')
+        if (action == Action.SPECIAL_ABILITY)
             castAbility();
         else {
-            if (action == 'd')
+            if (action == Action.RIGHT)
                 newPosition = newPosition.add(1, 0);
-            else if (action == 'a')
+            else if (action == Action.LEFT)
                 newPosition = newPosition.add(-1, 0);
-            else if (action == 'w')
+            else if (action == Action.UP)
                 newPosition = newPosition.add(0, -1);
-            else if (action == 's')
+            else if (action == Action.DOWN)
                 newPosition = newPosition.add(0, 1);
-
             onGameTick();
         }
 
         return newPosition;
     }
 
+    /// Visitor Pattern
     public void visit(Enemy enemy){
         battle(enemy);
         if(!enemy.alive()){
             swapPosition(enemy);
-            enemy.deathCallBack.Call();
+            enemy.onDeath();
             addExperience(enemy.getExperienceValue());
             messageCallBack.send(String.format("%s died. %s gained %d experience.", enemy.getName(), getName(), enemy.getExperienceValue()));
         }
     }
-
     public void visit(Empty tile){
         swapPosition(tile);
     }
     public void visit(Wall wall){}
-    public void accept(Visitor v){v.visit(this);}
     public void visit(Player player){}
+    public void accept(Visitor v){v.visit(this);}
+
+
+
 
     public void setEnemiesInRangeCallBack(EnemiesInRangeCallBack enemiesInRangeCallBack) {
         this.enemiesInRangeCallBack = enemiesInRangeCallBack;

@@ -1,8 +1,8 @@
-package Tiles;
+package Tiles.Players;
 
-import Game.Resource;
+import Game.Utils.Resource;
+import Tiles.Enemies.Enemy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -73,7 +73,7 @@ public class Mage extends Player {
 
                 if(!selectedEnemy.alive()){
                     possibleEnemies.remove(selectedEnemy);
-                    selectedEnemy.deathCallBack.Call();
+                    selectedEnemy.onDeath();
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
                     addExperience(selectedEnemy.getExperienceValue());
                 }

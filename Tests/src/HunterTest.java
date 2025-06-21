@@ -1,9 +1,9 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
-import Tiles.Monster;
-import Tiles.Hunter;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Players.Hunter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,11 +33,11 @@ public class HunterTest {
         hunter= (Hunter) tileFactory.producePlayer(6, position1);
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         monster2 = (Monster) tileFactory.produceEnemy('s', position3);
-        hunter.setMessageCallBack(CLI::Display);
+        hunter.setMessageCallBack(UserInterface::Display);
         hunter.setEnemiesInRangeCallBack((range) -> enemies.stream()
                 .filter(e -> hunter.getPosition().range(e.getPosition()) < range)
                 .collect(Collectors.toList()));
-        monster.setMessageCallBack(CLI::Display);
+        monster.setMessageCallBack(UserInterface::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
         enemies.add(monster2);

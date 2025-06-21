@@ -1,12 +1,12 @@
-package Tiles;
+package Tiles.Players;
 
-import Game.Resource;
-import Game.Position;
-import java.util.ArrayList;
+import Game.Utils.Resource;
+import Tiles.Enemies.Enemy;
+
 import java.util.List;
 import java.util.Random;
 
-public class Warrior extends Player{
+public class Warrior extends Player {
     private int abilityCoolDown;
     private int remainingCoolDown;
     private static final int WARRIOR_ATTACK_BONUS=2;
@@ -40,9 +40,9 @@ public class Warrior extends Player{
                 int defensePoints = selectedEnemy.defense();
                 int actualAttack = Math.max(0, attackPoints - defensePoints);
                 messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), selectedEnemy.getName(), actualAttack));
-                selectedEnemy.health.ReduceAmount(actualAttack);
+                selectedEnemy.getHealth().ReduceAmount(actualAttack);
                 if(!selectedEnemy.alive()){
-                    selectedEnemy.deathCallBack.Call();
+                    selectedEnemy.onDeath();
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", selectedEnemy.getName(), getName(), selectedEnemy.getExperienceValue()));
                     addExperience(selectedEnemy.getExperienceValue());
                 }

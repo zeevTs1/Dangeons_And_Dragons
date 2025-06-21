@@ -1,6 +1,6 @@
 package Callbacks;
 
-import Tiles.Player;
+import Tiles.Players.Player;
 
 public interface GetPlayerCallBack {
     Player getPlayer();

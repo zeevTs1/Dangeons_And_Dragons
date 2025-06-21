@@ -1,8 +1,8 @@
 package VisitorPattern;
 
 import Tiles.Empty;
-import Tiles.Enemy;
-import Tiles.Player;
+import Tiles.Enemies.Enemy;
+import Tiles.Players.Player;
 import Tiles.Wall;
 
 public interface Visitor {

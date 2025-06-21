@@ -1,18 +1,18 @@
-package Tiles;
+package Tiles.Enemies;
 
-import Game.Position;
-import Game.Resource;
+import Game.Utils.Position;
+import Game.Utils.Resource;
+import Tiles.Players.Player;
 
-import java.util.List;
 import java.util.Random;
 
-public class Monster extends Enemy{
-    private final int MOVE_UP=0;
-    private final int MOVE_DOWN=1;
-    private final int MOVE_LEFT=2;
-    private final int MOVE_RIGHT=3;
+public class Monster extends Enemy {
+    protected final int MOVE_UP=0;
+    protected final int MOVE_DOWN=1;
+    protected final int MOVE_LEFT=2;
+    protected final int MOVE_RIGHT=3;
 
-    private int visionRange;
+    protected int visionRange;
 
     public Monster(char tile, String name, int healthCapacity, int attack, int defense, int experienceValue, int visionRange){
         super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
@@ -53,13 +53,4 @@ public class Monster extends Enemy{
         return newPosition;
     }
 
-
-
-    public int getVisionRange() {
-        return visionRange;
-    }
-
-    public void setVisionRange(int visionRange) {
-        this.visionRange = visionRange;
-    }
 }

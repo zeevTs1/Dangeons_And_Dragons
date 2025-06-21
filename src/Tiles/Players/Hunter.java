@@ -1,10 +1,11 @@
-package Tiles;
+package Tiles.Players;
 
-import Game.Resource;
+import Game.Utils.Resource;
+import Tiles.Enemies.Enemy;
 
 import java.util.List;
 
-public class Hunter extends Player{
+public class Hunter extends Player {
 
     private int range;
     private int arrowsCount;
@@ -75,9 +76,9 @@ public class Hunter extends Player{
                 int defensePoints = closestEnemy.defense();
                 int actualAttack = Math.max(0, attack - defensePoints);
                 messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), closestEnemy.getName(), actualAttack));
-                closestEnemy.health.ReduceAmount(actualAttack);
+                closestEnemy.getHealth().ReduceAmount(actualAttack);
                 if(!closestEnemy.alive()){
-                    closestEnemy.deathCallBack.Call();
+                    closestEnemy.onDeath();
                     messageCallBack.send(String.format("%s died. %s gained %d experience.", closestEnemy.getName(), getName(), closestEnemy.getExperienceValue()));
                     addExperience(closestEnemy.getExperienceValue());
                 }

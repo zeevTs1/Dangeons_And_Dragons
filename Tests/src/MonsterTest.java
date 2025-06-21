@@ -1,10 +1,9 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
-import Tiles.Monster;
-import Tiles.Player;
-import org.junit.Assert;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Players.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +32,8 @@ public class MonsterTest {
         player = tileFactory.producePlayer(0, position1);
         monster = (Monster) tileFactory.produceEnemy('q', position2);
         farAwayMonster = (Monster) tileFactory.produceEnemy('q', position3);
-        player.setMessageCallBack(CLI::Display);
-        monster.setMessageCallBack(CLI::Display);
+        player.setMessageCallBack(UserInterface::Display);
+        monster.setMessageCallBack(UserInterface::Display);
         monster.setPlayerCallBack(() -> player);
         farAwayMonster.setPlayerCallBack(() -> player);
         enemies = new ArrayList<>();

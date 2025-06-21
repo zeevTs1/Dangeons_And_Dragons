@@ -1,9 +1,9 @@
-import CLI.CLI;
-import Game.Position;
+import CLI.UserInterface;
+import Game.Utils.Position;
 import Game.TileFactory;
-import Tiles.Enemy;
-import Tiles.Monster;
-import Tiles.Rogue;
+import Tiles.Enemies.Enemy;
+import Tiles.Enemies.Monster;
+import Tiles.Players.Rogue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,11 +33,11 @@ public class RougeTest {
         rogue= (Rogue) tileFactory.producePlayer(5, position1);
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         monster2 = (Monster) tileFactory.produceEnemy('s', position3);
-        rogue.setMessageCallBack(CLI::Display);
+        rogue.setMessageCallBack(UserInterface::Display);
         rogue.setEnemiesInRangeCallBack((range) -> enemies.stream()
                 .filter(e -> rogue.getPosition().range(e.getPosition()) < range)
                 .collect(Collectors.toList()));
-        monster.setMessageCallBack(CLI::Display);
+        monster.setMessageCallBack(UserInterface::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
         enemies.add(monster2);

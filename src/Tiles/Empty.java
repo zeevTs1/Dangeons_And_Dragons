@@ -1,5 +1,5 @@
 package Tiles;
-import Game.Position;
+import Game.Utils.Position;
 import VisitorPattern.Visitor;
 
 public class Empty extends Tile{
