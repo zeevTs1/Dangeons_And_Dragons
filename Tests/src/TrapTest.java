@@ -3,6 +3,7 @@ import Game.Position;
 import Game.TileFactory;
 import Tiles.Enemy;
 
+import Tiles.Player;
 import Tiles.Trap;
 import Tiles.Warrior;
 import org.junit.Assert;
@@ -22,28 +23,29 @@ public class TrapTest {
     private Position position1;
     private Position position2;
     private Trap trap;
-    private Warrior warrior;
+    private Player player;
     @BeforeEach
     public void TestInitializer() {
         tileFactory = new TileFactory();
         position1 = new Position(1,1);
-        position2 = new Position(1,2);
+        position2 = new Position(5,5);
         trap = (Trap) tileFactory.produceEnemy('D', position1);
         enemies= new ArrayList<>();
         enemies.add(trap);
-        warrior = (Warrior) tileFactory.producePlayer(0, position2);
+        player = tileFactory.producePlayer(0, position2);
+        trap.setPlayerCallBack(() -> player);
     }
 
     @Test
     public void testPerformAction() {
-        trap.performAction(enemies,warrior);
+        trap.performAction();
         assertEquals(true,trap.getVisible());
         for(int i =1 ;i< 11 ;i++){
             assertEquals(i,trap.getTicksCount());
-            trap.performAction(enemies,warrior);
+            trap.performAction();
             assertEquals(false,trap.getVisible());
         }
-        trap.performAction(enemies,warrior);
+        trap.performAction();
         assertEquals(0,trap.getTicksCount());
     }
 

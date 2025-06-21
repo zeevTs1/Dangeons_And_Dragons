@@ -1,6 +1,7 @@
 import CLI.CLI;
 import Game.Position;
 import Game.TileFactory;
+import Tiles.Enemy;
 import Tiles.Monster;
 import Tiles.Player;
 import org.junit.Assert;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -19,6 +22,7 @@ public class MonsterTest {
     private Position position2;
     private Position position3;
     private Monster monster, farAwayMonster;
+    private List<Enemy> enemies;
 
     @BeforeEach
     public void TestInitializer() {
@@ -31,27 +35,32 @@ public class MonsterTest {
         farAwayMonster = (Monster) tileFactory.produceEnemy('q', position3);
         player.setMessageCallBack(CLI::Display);
         monster.setMessageCallBack(CLI::Display);
+        monster.setPlayerCallBack(() -> player);
+        farAwayMonster.setPlayerCallBack(() -> player);
+        enemies = new ArrayList<>();
+        enemies.add(monster);
+        enemies.add(farAwayMonster);
     }
 
     @Test
     public void testChasePlayer() {
         Position tempPosition;
-        tempPosition = monster.performAction(null, player);
+        tempPosition = monster.performAction();
         assertEquals(0,tempPosition.compareTo(new Position(3,2)));
         monster.setPosition(tempPosition);
-        tempPosition = monster.performAction(null, player);
+        tempPosition = monster.performAction();
         assertEquals(0,tempPosition.compareTo(new Position(2,2)));
         monster.setPosition(tempPosition);
-        tempPosition = monster.performAction(null, player);
+        tempPosition = monster.performAction();
         assertEquals(0,tempPosition.compareTo(new Position(2,1)));
     }
 
     @Test
     public void testMoveRandomly(){
-        Position position = farAwayMonster.performAction(null, player);
+        Position position = farAwayMonster.performAction();
         Position tempPosition = position;
         for(int i=0 ; i<30 && tempPosition.equals(position); i++){
-            tempPosition = farAwayMonster.performAction(null, player);
+            tempPosition = farAwayMonster.performAction();
         }
         assertNotEquals(tempPosition, position);
     }

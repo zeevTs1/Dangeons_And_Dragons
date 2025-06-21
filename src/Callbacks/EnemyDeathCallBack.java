@@ -1,5 +1,5 @@
 package Callbacks;
 
-public interface DeathCallBack {
+public interface EnemyDeathCallBack {
     void Call();
 }

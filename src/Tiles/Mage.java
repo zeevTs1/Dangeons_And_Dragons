@@ -55,16 +55,12 @@ public class Mage extends Player {
     }
 
     @Override
-    public void castAbility(List<Enemy> enemies, Player player){
+    public void castAbility(){
         if(manaCost<=this.mana.getAmount()) {
             messageCallBack.send(String.format("%s cast %s.", getName(), specialAbilityName));
             this.mana.ReduceAmount(manaCost);
             int hits = 0;
-            List<Enemy> possibleEnemies = new ArrayList<>();
-            for(Enemy enemy : enemies){
-                if(getPosition().range(enemy.getPosition()) < abilityRange)
-                    possibleEnemies.add(enemy);
-            }
+            List<Enemy> possibleEnemies = enemiesInRangeCallBack.getEnemies(abilityRange);
             while (hits < hitsCount && !possibleEnemies.isEmpty()) {
                 Random randomEnemy = new Random();
                 int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());

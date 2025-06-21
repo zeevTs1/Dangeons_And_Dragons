@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,6 +34,9 @@ public class RougeTest {
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         monster2 = (Monster) tileFactory.produceEnemy('s', position3);
         rogue.setMessageCallBack(CLI::Display);
+        rogue.setEnemiesInRangeCallBack((range) -> enemies.stream()
+                .filter(e -> rogue.getPosition().range(e.getPosition()) < range)
+                .collect(Collectors.toList()));
         monster.setMessageCallBack(CLI::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
@@ -51,7 +55,7 @@ public class RougeTest {
 
     @Test
     public void testOnGameTick() {
-        rogue.castAbility(enemies, rogue);
+        rogue.castAbility();
         monster.getHealth().restore();
         rogue.onGameTick();
         assertEquals(60, rogue.getCurrentEnergy());
@@ -69,7 +73,7 @@ public class RougeTest {
 
     @Test
     public void testCastAbility() {
-        rogue.castAbility(enemies, rogue);
+        rogue.castAbility();
         assertTrue(monster.getHealth().getAmount() < 80);
         assertEquals(monster2.getHealth().getAmount(),80);
         assertEquals(50, rogue.getCurrentEnergy());

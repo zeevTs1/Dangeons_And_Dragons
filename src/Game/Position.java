@@ -53,11 +53,5 @@ public class Position implements Comparable<Position> {
         return 0;
     }
 
-    @Override
-    public String toString() {
-        return "Game.Position{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
-    }
+
 }

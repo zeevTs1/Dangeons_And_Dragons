@@ -1,5 +1,7 @@
 package Tiles;
 
+import Callbacks.EnemiesInRangeCallBack;
+import Callbacks.GetPlayerCallBack;
 import Callbacks.InputQuery;
 import Game.Resource;
 import Game.Position;
@@ -29,6 +31,7 @@ public abstract class Player extends Unit implements HeroicUnit {
     protected int level;
 
     protected InputQuery inputProvider;
+    protected EnemiesInRangeCallBack enemiesInRangeCallBack;
 
     public Player(Position position, String name, Resource health, int attack, int defense){
         super(playerTile, position, name, health, attack, defense);
@@ -83,12 +86,12 @@ public abstract class Player extends Unit implements HeroicUnit {
     }
 
 
-    public Position performAction(List<Enemy> enemies, Player player) {
+    public Position performAction() {
         char action = inputProvider.getInput();
         Position newPosition = position;
 
         if (action == 'e')
-            castAbility(enemies, player);
+            castAbility();
         else {
             if (action == 'd')
                 newPosition = newPosition.add(1, 0);
@@ -121,6 +124,10 @@ public abstract class Player extends Unit implements HeroicUnit {
     public void visit(Wall wall){}
     public void accept(Visitor v){v.visit(this);}
     public void visit(Player player){}
+
+    public void setEnemiesInRangeCallBack(EnemiesInRangeCallBack enemiesInRangeCallBack) {
+        this.enemiesInRangeCallBack = enemiesInRangeCallBack;
+    }
 
     @Override
     public String toString()

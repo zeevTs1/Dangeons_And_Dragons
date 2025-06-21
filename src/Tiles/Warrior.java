@@ -26,16 +26,12 @@ public class Warrior extends Player{
 
 
     @Override
-    public void castAbility(List<Enemy> enemies, Player player) {
+    public void castAbility() {
         if(remainingCoolDown == 0){
             int healthBonus = gainAbilityHealth();
             messageCallBack.send(String.format("%s used %s, healing for: %d.", getName(), specialAbilityName, healthBonus));
             this.health.AddAmount(healthBonus);
-            List<Enemy> possibleEnemies = new ArrayList<>();
-            for(Enemy enemy : enemies){
-                if(getPosition().range(enemy.getPosition()) < WARRIOR_SPECIAL_ABILITY_RANGE)
-                    possibleEnemies.add(enemy);
-            }
+            List<Enemy> possibleEnemies = enemiesInRangeCallBack.getEnemies(WARRIOR_SPECIAL_ABILITY_RANGE);
             if(!possibleEnemies.isEmpty()){
                 Random randomEnemy = new Random();
                 int enemyIndex = randomEnemy.nextInt(possibleEnemies.size());

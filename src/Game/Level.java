@@ -5,6 +5,7 @@ import Tiles.Player;
 import Tiles.Tile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Level {
     private GameBoard board;
@@ -20,8 +21,11 @@ public class Level {
         this.playerStartingPosition = new Position(playerStartingPosition);
     }
 
-    public void initializePlayerPosition(){
+    public void initializePlayer(){
         player.setPosition(playerStartingPosition);
+        player.setEnemiesInRangeCallBack((range) -> getEnemies().stream()
+                .filter(e -> player.getPosition().range(e.getPosition()) < range)
+                .collect(Collectors.toList()));
     }
 
     public boolean won(){
@@ -33,11 +37,11 @@ public class Level {
         Position enemyActionPosition;
         Tile tileForPlayer;
         Tile tileForEnemy;
-        playerActionPosition = player.performAction(Enemies, player);
+        playerActionPosition = player.performAction();
         tileForPlayer = board.get(playerActionPosition);
         player.interact(tileForPlayer);
         for(Enemy e : Enemies){
-            enemyActionPosition = e.performAction(Enemies, player);
+            enemyActionPosition = e.performAction();
             tileForEnemy = board.get(enemyActionPosition);
             e.interact(tileForEnemy);
         }
@@ -47,6 +51,14 @@ public class Level {
     public void removeEnemy(Enemy enemy){
         board.remove(enemy);
         Enemies.remove(enemy);
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public List<Enemy> getEnemies() {
+        return Enemies;
     }
 
     public String toString(){

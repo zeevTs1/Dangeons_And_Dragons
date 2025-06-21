@@ -43,23 +43,21 @@ public class Rogue extends Player {
     }
 
     @Override
-    public void castAbility(List<Enemy> enemies, Player player) {
+    public void castAbility() {
         if(currentEnergy>=cost){
             currentEnergy = currentEnergy - cost;
             messageCallBack.send(String.format("%s cast %s.", getName(), specialAbilityName));
+            List<Enemy> enemies = enemiesInRangeCallBack.getEnemies(ROUGE_SPECIAL_ABILITY_RANGE);
             List<Enemy> deadEnemies = new ArrayList<>();
             for(Enemy enemy : enemies){
-                if(getPosition().range(enemy.getPosition()) < ROUGE_SPECIAL_ABILITY_RANGE) {
-                    int defensePoints = enemy.defense();
-                    int actualAttack = Math.max(attack - defensePoints,0);
-                    messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), enemy.getName(), actualAttack));
-                    enemy.getHealth().ReduceAmount(actualAttack);
-                    if(!enemy.alive()){
-                        deadEnemies.add(enemy);
-                        messageCallBack.send(String.format("%s died. %s gained %d experience.", enemy.getName(), getName(), enemy.getExperienceValue()));
-                        addExperience(enemy.getExperienceValue());
-                    }
-
+                int defensePoints = enemy.defense();
+                int actualAttack = Math.max(attack - defensePoints,0);
+                messageCallBack.send(String.format("%s hit %s for %d ability damage.",getName(), enemy.getName(), actualAttack));
+                enemy.getHealth().ReduceAmount(actualAttack);
+                if(!enemy.alive()){
+                    deadEnemies.add(enemy);
+                    messageCallBack.send(String.format("%s died. %s gained %d experience.", enemy.getName(), getName(), enemy.getExperienceValue()));
+                    addExperience(enemy.getExperienceValue());
                 }
             }
             for(Enemy deadEnemy : deadEnemies){

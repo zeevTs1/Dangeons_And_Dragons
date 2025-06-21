@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -31,6 +32,9 @@ public class WarriorTest {
         warrior = (Warrior) tileFactory.producePlayer(0, position1);
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         warrior.setMessageCallBack(CLI::Display);
+        warrior.setEnemiesInRangeCallBack((range) -> enemies.stream()
+                .filter(e -> warrior.getPosition().range(e.getPosition()) < range)
+                .collect(Collectors.toList()));
         monster.setMessageCallBack(CLI::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
@@ -48,7 +52,7 @@ public class WarriorTest {
 
     @Test
     public void testOnGameTick() {
-        warrior.castAbility(enemies, warrior);
+        warrior.castAbility();
         monster.getHealth().restore();
         warrior.onGameTick();
         assertEquals(2, warrior.getRemainingCoolDown());
@@ -61,7 +65,7 @@ public class WarriorTest {
     @Test
     public void testCastAbility() {
         int currentHealth = warrior.getHealth().getAmount();
-        warrior.castAbility(enemies, warrior);
+        warrior.castAbility();
         assertTrue(monster.getHealth().getAmount() < 80);
         assertEquals(3, warrior.getRemainingCoolDown());
         assertEquals(Math.min(currentHealth+10*warrior.getDefense(), warrior.getHealth().getCapacity()), warrior.getHealth().getAmount());

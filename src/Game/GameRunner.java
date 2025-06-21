@@ -39,7 +39,7 @@ public class GameRunner {
 
     public void start(){
         for(Level currentLevel : levels){
-            currentLevel.initializePlayerPosition();
+            currentLevel.initializePlayer();
             while (!currentLevel.won())
             {
                 System.out.println(currentLevel);

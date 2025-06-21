@@ -19,7 +19,8 @@ public class Monster extends Enemy{
         this.visionRange=visionRange;
     }
 
-    public Position performAction(List<Enemy> enemies, Player player){
+    public Position performAction(){
+        Player player = playerCallBack.getPlayer();
         Position newPosition = getPosition();
         if(getPosition().range(player.getPosition()) < visionRange){
             int dx = getPosition().getX()-player.getPosition().getX();

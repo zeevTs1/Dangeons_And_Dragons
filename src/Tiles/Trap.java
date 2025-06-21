@@ -34,7 +34,8 @@ public class Trap extends Enemy{
         return visible;
     }
 
-    public Position performAction(List<Enemy> enemies, Player player){
+    public Position performAction(){
+        Player player = playerCallBack.getPlayer();
         Position newPosition = getPosition();
         visible = ticksCount < visibilityTime;
         if(ticksCount==(visibilityTime+invisibilityTime))

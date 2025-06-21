@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -33,6 +34,9 @@ public class HunterTest {
         monster = (Monster) tileFactory.produceEnemy('s', position2);
         monster2 = (Monster) tileFactory.produceEnemy('s', position3);
         hunter.setMessageCallBack(CLI::Display);
+        hunter.setEnemiesInRangeCallBack((range) -> enemies.stream()
+                .filter(e -> hunter.getPosition().range(e.getPosition()) < range)
+                .collect(Collectors.toList()));
         monster.setMessageCallBack(CLI::Display);
         enemies= new ArrayList<>();
         enemies.add(monster);
@@ -67,7 +71,7 @@ public class HunterTest {
 
     @Test
     public void testCastAbility() {
-        hunter.castAbility(enemies, hunter);
+        hunter.castAbility();
         assertEquals(9,hunter.getArrowsCount());
         assertTrue(monster.getHealth().getAmount() <80);
         assertEquals(monster2.getHealth().getAmount(),80);

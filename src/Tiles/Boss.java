@@ -21,17 +21,19 @@ public class Boss extends Enemy implements HeroicUnit {
         super(tile, null, name, new Resource(healthCapacity,healthCapacity), attack, defense, experienceValue);
         this.visionRange=visionRange;
         this.abilityFrequency=abilityFrequency;
+        this.combatTicks=0;
     }
 
-    public Position performAction(List<Enemy> enemies, Player player){
+    public Position performAction(){
+        Player player = playerCallBack.getPlayer();
         Position newPosition = getPosition();
         if(getPosition().range(player.getPosition()) < visionRange){
+            combatTicks++;
             if(combatTicks == abilityFrequency){
                 combatTicks=0;
-                castAbility(enemies, player);
+                castAbility();
             }
             else {
-                combatTicks++;
                 int dx = getPosition().getX() - player.getPosition().getX();
                 int dy = getPosition().getY() - player.getPosition().getY();
                 if (Math.abs(dx) > Math.abs(dy)) {
@@ -64,8 +66,9 @@ public class Boss extends Enemy implements HeroicUnit {
     }
 
     @Override
-    public void castAbility(List<Enemy> enemies, Player player) {
-        if(getPosition().range(player.getPosition()) <= visionRange) {
+    public void castAbility() {
+        Player player = playerCallBack.getPlayer();
+        if(getPosition().range(player.getPosition()) < visionRange) {
             messageCallBack.send(String.format("%s shoots %s for %d damage.", getName(), player.getName(), getAttack()));
             int defensePoints = player.defense();
             int actualAttack = Math.max(getAttack() - defensePoints, 0);
@@ -73,7 +76,6 @@ public class Boss extends Enemy implements HeroicUnit {
             player.getHealth().ReduceAmount(actualAttack);
             if(!player.alive()){
                 messageCallBack.send(String.format("%s was killed by %s.", player.getName(), getName()));
-                player.deathCallBack.Call();
             }
         }
     }

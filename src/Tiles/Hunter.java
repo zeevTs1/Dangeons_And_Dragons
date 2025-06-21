@@ -58,15 +58,14 @@ public class Hunter extends Player{
     }
 
     @Override
-    public void castAbility(List<Enemy> enemies,Player player) {
+    public void castAbility() {
         if(arrowsCount != 0){
             Enemy closestEnemy = null;
+            List<Enemy> enemies = enemiesInRangeCallBack.getEnemies(range);
             for(Enemy enemy : enemies){
                 double distanceEnemy =  getPosition().range(enemy.getPosition());
-                if(distanceEnemy < range) {
-                    if(closestEnemy == null || getPosition().range(closestEnemy.getPosition()) > distanceEnemy) {
-                        closestEnemy = enemy;
-                    }
+                if(closestEnemy == null || getPosition().range(closestEnemy.getPosition()) > distanceEnemy) {
+                    closestEnemy = enemy;
                 }
             }
 

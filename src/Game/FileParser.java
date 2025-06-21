@@ -66,7 +66,6 @@ public class FileParser {
                         player = tileFactory.producePlayer(playerIndex, tilePosition);
                         player.setMessageCallBack(CLI::Display);
                         player.setInputQuery(() -> new Scanner(System.in).next().charAt(0));
-                        player.setDeathCallBack(() -> player.toString());
                         tile = player;
                     }
                     else{
@@ -85,8 +84,6 @@ public class FileParser {
             x=0;
             y++;
         }
-
-
         return tiles;
     }
 
@@ -97,6 +94,7 @@ public class FileParser {
 
         for (Enemy e : enemies) {
             e.setDeathCallBack(() -> level.removeEnemy(e));
+            e.setPlayerCallBack(level::getPlayer);
         }
 
         enemies.clear();

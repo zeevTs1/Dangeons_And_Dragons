@@ -1,8 +1,8 @@
 package Game;
 
 public class Resource {
-    protected int amount;
-    protected int capacity;
+    private int amount;
+    private int capacity;
 
     public Resource(int amount, int capacity) {
         this.amount = amount;
