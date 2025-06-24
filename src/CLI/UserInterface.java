@@ -1,6 +1,6 @@
 package CLI;
 
-import Game.Utils.Action;
+import Utils.Action;
 
 import java.util.Scanner;
 

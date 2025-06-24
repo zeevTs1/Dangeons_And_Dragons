@@ -1,4 +1,4 @@
-package Game.Utils;
+package Utils;
 
 public enum Action {
     LEFT,

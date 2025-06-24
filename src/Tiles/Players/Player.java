@@ -2,9 +2,9 @@ package Tiles.Players;
 
 import Callbacks.EnemiesInRangeCallBack;
 import CLI.InputQuery;
-import Game.Utils.Action;
-import Game.Utils.Resource;
-import Game.Utils.Position;
+import Utils.Action;
+import Utils.Resource;
+import Utils.Position;
 import Tiles.Empty;
 import Tiles.Enemies.Enemy;
 import Tiles.HeroicUnit;

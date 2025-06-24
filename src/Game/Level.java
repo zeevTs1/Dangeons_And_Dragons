@@ -1,6 +1,6 @@
 package Game;
 
-import Game.Utils.Position;
+import Utils.Position;
 import Tiles.Enemies.Enemy;
 import Tiles.Players.Player;
 import Tiles.Tile;
@@ -42,11 +42,9 @@ public class Level {
         tileForPlayer = board.get(playerActionPosition);
         player.interact(tileForPlayer);
         for(Enemy e : Enemies){
-            if(player.alive()) {
-                enemyActionPosition = e.performAction();
-                tileForEnemy = board.get(enemyActionPosition);
-                e.interact(tileForEnemy);
-            }
+            enemyActionPosition = e.performAction();
+            tileForEnemy = board.get(enemyActionPosition);
+            e.interact(tileForEnemy);
         }
         return player.alive();
     }

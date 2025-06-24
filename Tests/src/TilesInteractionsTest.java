@@ -1,5 +1,5 @@
 import CLI.UserInterface;
-import Game.Utils.Position;
+import Utils.Position;
 import Game.TileFactory;
 import Tiles.*;
 import Tiles.Enemies.Enemy;

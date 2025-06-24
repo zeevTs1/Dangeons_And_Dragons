@@ -1,4 +1,4 @@
-import Game.Utils.Position;
+import Utils.Position;
 import Game.TileFactory;
 import Tiles.Enemies.Enemy;
 

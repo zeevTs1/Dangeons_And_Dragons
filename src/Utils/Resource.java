@@ -1,4 +1,4 @@
-package Game.Utils;
+package Utils;
 
 public class Resource {
     private int amount;
