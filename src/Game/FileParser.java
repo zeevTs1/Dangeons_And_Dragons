@@ -59,16 +59,13 @@ public class FileParser {
                     tile = tileFactory.produceWall(tilePosition);
                 }
                 else if(c==PLAYER){
+                    startingPosition = tilePosition;
                     if(player==null) {
-                        startingPosition = tilePosition;
                         player = tileFactory.producePlayer(playerIndex, tilePosition);
                         player.setMessageCallBack(UserInterface::Display);
                         player.setInputQuery(UserInterface::getAction);
-                        tile = player;
                     }
-                    else{
-                        tile = player;
-                    }
+                    tile = player;
                 }
                 else{
                     Enemy e = tileFactory.produceEnemy(c, tilePosition);
